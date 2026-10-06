@@ -1,0 +1,94 @@
+import wollok.game.*
+
+object pantallaDeInicio {
+/*
+Hice que al ejecutar el programa se inicie con alguno
+de los fondos seleccionados, y que con una chance
+del 5% te pueda salir una version macabra del menú
+*/
+  var property position = game.origin()
+  var property image = self.elegirFondo()
+  const chance = 0.randomUpTo(99)
+  const menus = [
+    "./assets/Fondo/Menu_inicio_morado_TLTB.png",
+    "./assets/Fondo/Menu_inicio_rojo_TLTB.png", 
+    "./assets/Fondo/Menu_inicio_amarillo_TLTB.png", 
+    "./assets/Fondo/Menu_inicio_verde_TLTB.png"
+    ]
+    method elegirFondo(){
+        if (chance < 5){
+            return "./assets/Fondo/Menu_inicio_especial_TLTB.jpg"
+
+        }else{
+            return menus.anyOne()
+        }
+    }
+}
+/*
+Estoy haciendo pruebas, sientanse libres de cambiar lo
+que viene a continuacion, total quedo sin estructura; intenté
+crear las opciones del menú y que sea interactivo, intenté
+una navegación circular y que sea escalable con clases para
+agregarle mas opciones al menú
+*/
+class opcionesDelMenú {
+  var property position = game.at(0,0)
+  var textoBase = ""
+  var property text = ""
+  var property textColor = "000000FF"
+
+}
+object opciónJugar {
+  var property position = game.at(15,11)
+  var property text = "> JUGAR <"
+  var property textColor = "000000FF"
+
+}
+
+object opciónOpciones {
+  var property position = game.at(0,0)
+  var property text = "Opciones"
+  var property textColor = "000000FF"
+}
+
+object menuManager {
+    var opciónActual = 0
+    const ultimaOpción = 1
+    method iniciar(){
+        game.addVisual(pantallaDeInicio)
+        game.addVisual(opciónJugar)
+        game.addVisual(opciónOpciones)
+        //self.configurarTeclas()
+    }
+    method moverAbajo(){
+        if (opciónActual == ultimaOpción){
+            opciónActual = 0
+            opciónJugar.text("> JUGAR <")
+            opciónOpciones.text("Opciones")
+        }else{
+            opciónActual = opciónActual + 1
+            opciónJugar.text("Jugar")
+            opciónOpciones.text("> OPCIONES <")
+        }
+    }
+
+    method moverArriba(){
+        if (opciónActual == 0){
+            opciónActual = ultimaOpción
+            opciónJugar.text("Jugar")
+            opciónOpciones.text("> OPCIONES <")
+        }else{
+            opciónActual = opciónActual - 1
+            opciónJugar.text("> JUGAR <")
+            opciónOpciones.text("Opciones")
+        }
+    }
+
+    //method seleccionar(){
+    //   if (opciónActual() == 0){
+    //        self.comenzarJuego()
+    //    }else{
+    //        self.abrirOpciones()
+    //    }
+    //}
+}
