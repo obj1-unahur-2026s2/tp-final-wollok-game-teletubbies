@@ -7,7 +7,6 @@ de los fondos seleccionados, y que con una chance
 del 5% te pueda salir una version macabra del menú
 */
   var property position = game.origin()
-  var property image = self.elegirFondo()
   const chance = 0.randomUpTo(99)
   const menus = [
     "./assets/Fondo/Menu_inicio_morado_TLTB.png",
@@ -15,6 +14,7 @@ del 5% te pueda salir una version macabra del menú
     "./assets/Fondo/Menu_inicio_amarillo_TLTB.png", 
     "./assets/Fondo/Menu_inicio_verde_TLTB.png"
     ]
+  var property image = self.elegirFondo()
     method elegirFondo(){
         if (chance < 5){
             return "./assets/Fondo/Menu_inicio_especial_TLTB.jpg"
@@ -31,24 +31,31 @@ crear las opciones del menú y que sea interactivo, intenté
 una navegación circular y que sea escalable con clases para
 agregarle mas opciones al menú
 */
-class opcionesDelMenú {
+class OpcionesDelMenú {
   var property position = game.at(0,0)
   var textoBase = ""
   var property text = ""
   var property textColor = "000000FF"
 
 }
+/* cambie de text a imagenes porque los textos no se pueden cambiar
+ el tamaño y se veian muy chicos*/
+object opciónSeleccionada {
+  var property position = game.at(13,11)
+  method image() = "./assets/botones/botonSeleccionado.png"
+}
 object opciónJugar {
-  var property position = game.at(15,11)
-  var property text = "> JUGAR <"
-  var property textColor = "000000FF"
-
+  var property position = game.at(13,11)
+  method image() = "./assets/botones/botonJugar.png"
 }
 
 object opciónOpciones {
-  var property position = game.at(0,0)
-  var property text = "Opciones"
-  var property textColor = "000000FF"
+  var property position = game.at(13,9)
+  method image() = "./assets/botones/botonOpciones.png"
+}
+object opciónSalir {
+  var property position = game.at(13,7)
+  method image() = "./assets/botones/botonSalir.png"
 }
 
 object menuManager {

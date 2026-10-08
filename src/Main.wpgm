@@ -10,11 +10,18 @@ Teletubbies. Por ejemplo: "Menu_de_inicio_TLTB.png".
 program juego {
 
   game.width(31)
-  game.height(21)
+  game.height(19)
   game.cellSize(50)
   game.title("A Happy Place - Teletubbies escape room")
 
+  /*todo lo que se muestra en pantalla, actualmente solo el menu, 
+  luego puede cambiarse es solo para visualizarlo bien y ordenarlo*/
+  
   game.addVisual(pantallaDeInicio)
+  game.addVisual(opciónJugar)
+  game.addVisual(opciónOpciones)
+  game.addVisual(opciónSalir)
+  game.addVisual(opciónSeleccionada)
 
   keyboard.enter().onPressDo({
     game.say(pantallaDeInicio,"Empezaras un lindo juego")
