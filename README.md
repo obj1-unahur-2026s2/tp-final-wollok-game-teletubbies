@@ -1,10 +1,12 @@
-# Nombre del juego (<- borrar y completar)
+# A Happy Place
 
 ## Equipo de desarrollo
 
-- Alguien
-- Persona
-- etc.
+- Nicolás Gabriel Vazquez
+- Voda Zarate Lucia Catalina
+- Patricio Alegre Gabriel
+- Centurión Leandro Gustavo
+- Paz Franco Daniel
 
 ## Capturas
 
@@ -17,6 +19,6 @@
 
 ## Otros
 
-- Curso/Facultad
-- Versión de wollok
-- Una vez terminado, no tenemos problemas en que el repositorio sea público / queremos manternerlo privado
+- Programación con objetos 1
+- Versión 0.5.5
+- Una vez terminado queremos manternerlo privado

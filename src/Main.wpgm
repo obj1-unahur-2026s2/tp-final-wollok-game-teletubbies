@@ -14,14 +14,16 @@ program juego {
   game.cellSize(50)
   game.title("A Happy Place - Teletubbies escape room")
 
-  /*todo lo que se muestra en pantalla, actualmente solo el menu, 
-  luego puede cambiarse es solo para visualizarlo bien y ordenarlo*/
+  const opcionJugar = new OpcionesDelMenu(position = game.at(13,11) , image = "./assets/botones/botonJugar.png")
+  const opcionOpciones = new OpcionesDelMenu(position = game.at(13,9) , image = "./assets/botones/botonOpciones.png")
+  const opcionSalir = new OpcionesDelMenu(position = game.at(13,7) , image = "./assets/botones/botonSalir.png")
   
   game.addVisual(pantallaDeInicio)
-  game.addVisual(opciónJugar)
-  game.addVisual(opciónOpciones)
-  game.addVisual(opciónSalir)
-  game.addVisual(opciónSeleccionada)
+  game.addVisual(opcionJugar)
+  game.addVisual(opcionOpciones)
+  game.addVisual(opcionSalir)
+  game.addVisual(botonSeleccionado)
+  botonSeleccionado.moverSeleccionado([opcionJugar, opcionOpciones, opcionSalir])
 
   keyboard.enter().onPressDo({
     game.say(pantallaDeInicio,"Empezaras un lindo juego")

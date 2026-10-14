@@ -11,8 +11,8 @@ del 5% te pueda salir una version macabra del menú
   const menus = [
     "./assets/Fondo/Menu_inicio_morado_TLTB.png",
     "./assets/Fondo/Menu_inicio_rojo_TLTB.png", 
-    "./assets/Fondo/Menu_inicio_amarillo_TLTB.png", 
-    "./assets/Fondo/Menu_inicio_verde_TLTB.png"
+    "./assets/Fondo/Menu_inicio_verde_TLTB.png",
+    "./assets/Fondo/Menu_inicio_amarillo_TLTB.png" 
     ]
   var property image = self.elegirFondo()
     method elegirFondo(){
@@ -24,78 +24,44 @@ del 5% te pueda salir una version macabra del menú
         }
     }
 }
-/*
-Estoy haciendo pruebas, sientanse libres de cambiar lo
-que viene a continuacion, total quedo sin estructura; intenté
-crear las opciones del menú y que sea interactivo, intenté
-una navegación circular y que sea escalable con clases para
-agregarle mas opciones al menú
-*/
-class OpcionesDelMenú {
-  var property position = game.at(0,0)
-  var textoBase = ""
-  var property text = ""
-  var property textColor = "000000FF"
 
-}
-/* cambie de text a imagenes porque los textos no se pueden cambiar
- el tamaño y se veian muy chicos*/
-object opciónSeleccionada {
-  var property position = game.at(13,11)
-  method image() = "./assets/botones/botonSeleccionado.png"
-}
-object opciónJugar {
-  var property position = game.at(13,11)
-  method image() = "./assets/botones/botonJugar.png"
+class OpcionesDelMenu {
+    const position
+    const image
+
+    method position() = position
+    method image() = image
 }
 
-object opciónOpciones {
-  var property position = game.at(13,9)
-  method image() = "./assets/botones/botonOpciones.png"
-}
-object opciónSalir {
-  var property position = game.at(13,7)
-  method image() = "./assets/botones/botonSalir.png"
-}
+object botonSeleccionado {
+    var property position = game.at(13,11)
+    const image = "./assets/botones/botonSeleccionado.png"
+    var opciones = []
+    var indiceActual  = 0
 
-object menuManager {
-    var opciónActual = 0
-    const ultimaOpción = 1
-    method iniciar(){
-        game.addVisual(pantallaDeInicio)
-        game.addVisual(opciónJugar)
-        game.addVisual(opciónOpciones)
-        //self.configurarTeclas()
+    method image() = image
+    method moverSeleccionado(listaOpciones) {
+        opciones = listaOpciones
+
+        keyboard.down().onPressDo({ self.irALaSiguiente() })
+        keyboard.up().onPressDo({ self.irALaAnterior() })
     }
-    method moverAbajo(){
-        if (opciónActual == ultimaOpción){
-            opciónActual = 0
-            opciónJugar.text("> JUGAR <")
-            opciónOpciones.text("Opciones")
-        }else{
-            opciónActual = opciónActual + 1
-            opciónJugar.text("Jugar")
-            opciónOpciones.text("> OPCIONES <")
+
+    method irALaSiguiente() {
+        if(indiceActual < opciones.size() - 1) {
+            indiceActual += 1
+            self.actualizarPosicion()
+        }
+    }
+    method irALaAnterior() {
+        if(indiceActual > 0) {
+            indiceActual -= 1
+            self.actualizarPosicion()
         }
     }
 
-    method moverArriba(){
-        if (opciónActual == 0){
-            opciónActual = ultimaOpción
-            opciónJugar.text("Jugar")
-            opciónOpciones.text("> OPCIONES <")
-        }else{
-            opciónActual = opciónActual - 1
-            opciónJugar.text("> JUGAR <")
-            opciónOpciones.text("Opciones")
-        }
+    method actualizarPosicion() {
+        const opcionDestino = opciones.get(indiceActual)
+        position = opcionDestino.position()
     }
-
-    //method seleccionar(){
-    //   if (opciónActual() == 0){
-    //        self.comenzarJuego()
-    //    }else{
-    //        self.abrirOpciones()
-    //    }
-    //}
 }
