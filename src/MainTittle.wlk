@@ -28,9 +28,13 @@ del 5% te pueda salir una version macabra del menú
 class OpcionesDelMenu {
     const position
     const image
+    const accion
 
     method position() = position
     method image() = image
+    method onclick(){
+        accion.apply() 
+    }
 }
 
 object botonSeleccionado {
@@ -45,6 +49,12 @@ object botonSeleccionado {
 
         keyboard.down().onPressDo({ self.irALaSiguiente() })
         keyboard.up().onPressDo({ self.irALaAnterior() })
+    }
+    method ejecutar() {
+        keyboard.enter().onPressDo({
+            const opcionActual = opciones.get(indiceActual)
+            opcionActual.onclick() 
+        })
     }
 
     method irALaSiguiente() {
@@ -65,3 +75,29 @@ object botonSeleccionado {
         position = opcionDestino.position()
     }
 }
+const opcionJugar = new OpcionesDelMenu(
+    position = game.at(13, 11), 
+    image = "./assets/botones/botonJugar.png",
+    accion = { 
+      console.println("¡El botón Jugar funciona correctamente!")
+      })
+  const opcionOpciones = new OpcionesDelMenu(
+    position = game.at(13,9) , 
+    image = "./assets/botones/botonOpciones.png", accion = {} )
+  const opcionSalir = new OpcionesDelMenu(position = game.at(13,7) , image = "./assets/botones/botonSalir.png", accion = {game.stop()} )
+  
+  object menuInterfaz {
+    method menuinter(){
+        game.addVisual(pantallaDeInicio)
+        game.addVisual(opcionJugar)
+        game.addVisual(opcionOpciones)
+        game.addVisual(opcionSalir)
+        game.addVisual(botonSeleccionado)
+        botonSeleccionado.moverSeleccionado([opcionJugar, opcionOpciones, opcionSalir])
+
+        keyboard.enter().onPressDo({
+            game.say(pantallaDeInicio,"Empezaras un lindo juego")
+        })
+        botonSeleccionado.ejecutar()
+  }
+ }
