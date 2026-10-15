@@ -1,4 +1,5 @@
 import wollok.game.*
+import mapa.*
 
 object pantallaDeInicio {
 /*
@@ -75,11 +76,17 @@ object botonSeleccionado {
         position = opcionDestino.position()
     }
 }
+
+//se instancian los botones
+
+
+
 const opcionJugar = new OpcionesDelMenu(
     position = game.at(13, 11), 
     image = "./assets/botones/botonJugar.png",
     accion = { 
-      console.println("¡El botón Jugar funciona correctamente!")
+      game.clear()
+      mapa.facil()
       })
   const opcionOpciones = new OpcionesDelMenu(
     position = game.at(13,9) , 

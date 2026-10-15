@@ -1,5 +1,6 @@
 import wollok.game.*
 import MainTittle.*
+import mapa.*
 
 /*
 Si hay archivos con nombres iguales o parecidos, agreguen "TLTB"
@@ -14,6 +15,7 @@ program juego {
   game.cellSize(50)
   game.title("A Happy Place - Teletubbies escape room")
 
+  
   menuInterfaz.menuinter()
 
   game.start()
