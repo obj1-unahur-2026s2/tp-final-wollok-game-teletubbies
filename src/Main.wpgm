@@ -1,6 +1,7 @@
 import wollok.game.*
 import MainTittle.*
 import mapa.*
+import sonidos.*
 
 /*
 Si hay archivos con nombres iguales o parecidos, agreguen "TLTB"
@@ -15,8 +16,11 @@ program juego {
   game.cellSize(50)
   game.title("A Happy Place - Teletubbies escape room")
 
-  
+  const musica = game.sound("./assets/musica/leberch-horror-dark-375194.mp3")
+  musica.shouldLoop(true)
+  game.schedule(500, {musica.play()})
   menuInterfaz.menuinter()
+  //gestorSonido.musica()
 
   game.start()
 }
