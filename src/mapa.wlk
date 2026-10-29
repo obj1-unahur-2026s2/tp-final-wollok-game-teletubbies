@@ -1,6 +1,7 @@
 import wollok.game.*
 import Timoty.*
 import mochila.*
+import Teletubbie.*
 
 object mapa {
     method facil() {
@@ -19,6 +20,10 @@ object mapa {
         keyboard.right().onPressDo({ timoty.cambiarDireccion("left") })  
         
         game.onTick(150, "animarTimoty", { timoty.animarCaminata() })
+
+        //Teletubbies
+        const laalaa = new Teletubbie(nombre = "laa-laa", color = "amarillo", patron = new PatrullaVertical(), position = game.at(10, 5))
+        laalaa.aparecer() //muchachos esta parte es temporal, estoy testeando el movimiento. Si le cambian el PatrullaVertical por PatrullaHorizontal se va a mover de izquierda a derecha
     }
 }
 object piso{
@@ -41,3 +46,4 @@ object silla_derecha{
     var property position =game.at(2, 4)
     method image() ="./assets/tiles/silla_derecha.png" 
 }
+
