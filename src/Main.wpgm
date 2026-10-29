@@ -16,11 +16,9 @@ program juego {
   game.cellSize(50)
   game.title("A Happy Place - Teletubbies escape room")
 
-  const musica = game.sound("./assets/musica/leberch-horror-dark-375194.mp3")
-  musica.shouldLoop(true)
-  game.schedule(500, {musica.play()})
-  menuInterfaz.menuinter()
-  //gestorSonido.musica()
+  
+  menuInterfaz.menuInicio()
+  gestorSonido.musica()
 
   game.start()
 }

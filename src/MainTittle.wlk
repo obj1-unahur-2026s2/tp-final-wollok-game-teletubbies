@@ -56,6 +56,9 @@ object botonSeleccionado {
         keyboard.up().onPressDo({ self.irALaAnterior() })
     }
     method ejecutar() {
+        indiceActual = 0
+        self.actualizarPosicion()
+
         keyboard.enter().onPressDo({
             const opcionActual = opciones.get(indiceActual)
             opcionActual.onclick() 
@@ -77,28 +80,64 @@ object botonSeleccionado {
 
     method actualizarPosicion() {
         const opcionDestino = opciones.get(indiceActual)
-        position = opcionDestino.position()
+        position = game.at(self.position().x(), opcionDestino.position().y())
     }
 }
 
 //se instancian los botones
-
-
 
 const opcionJugar = new OpcionesDelMenu(
     position = game.at(13, 10), 
     image = "./assets/botones/botonJugar.png",
     accion = { 
       game.clear()
-      mapa.facil()
+      mapa.dificultad()
       })
-  const opcionOpciones = new OpcionesDelMenu(
+const opcionOpciones = new OpcionesDelMenu(
     position = game.at(13,8) , 
-    image = "./assets/botones/botonOpciones.png", accion = {} )
-  const opcionSalir = new OpcionesDelMenu(position = game.at(13,6) , image = "./assets/botones/botonSalir.png", accion = {game.stop()} )
-  
-  object menuInterfaz {
-    method menuinter(){
+    image = "./assets/botones/botonOpciones.png", 
+    accion = {
+        game.clear()
+        menuInterfaz.menuOpciones()
+    })
+const opcionSalir = new OpcionesDelMenu(
+    position = game.at(13,6), 
+    image = "./assets/botones/botonSalir.png", 
+    accion = {game.stop()})
+
+const opcionFacil = new OpcionesDelMenu(
+    position = game.at(13,10),
+    image = "./assets/botones/botonFacil.png",
+    accion = {
+        mapa.dificultadActual("facil")
+        game.clear()
+        menuInterfaz.menuInicio()
+    })
+const opcionDificil = new OpcionesDelMenu(
+    position = game.at(13,8),
+    image = "./assets/botones/botonDificil.png",
+    accion = {
+        mapa.dificultadActual("dificil")
+        game.clear()
+        menuInterfaz.menuInicio()
+    })
+const opcionInstrucciones = new OpcionesDelMenu(
+    position = game.at(11.5,6),
+    image = "./assets/botones/botonInstrucciones.png",
+    accion = {
+        game.clear()
+        menuInterfaz.menuInstrucciones()
+    })
+const opcionAtras = new OpcionesDelMenu(
+    position = game.at(13,6),
+    image = "./assets/botones/botonAtras.png",
+    accion = {
+        game.clear()
+        menuInterfaz.menuOpciones()
+    })
+
+object menuInterfaz {
+    method menuInicio(){
         game.addVisual(pantallaDeInicio)
         game.addVisual(opcionJugar)
         game.addVisual(opcionOpciones)
@@ -106,10 +145,22 @@ const opcionJugar = new OpcionesDelMenu(
         game.addVisual(botonSeleccionado)
         game.addVisual(titulo)
         botonSeleccionado.moverSeleccionado([opcionJugar, opcionOpciones, opcionSalir])
-
-        keyboard.enter().onPressDo({
-            game.say(pantallaDeInicio,"Empezaras un lindo juego")
-        })
         botonSeleccionado.ejecutar()
-  }
- }
+    }
+    method menuOpciones() {
+        game.addVisual(pantallaDeInicio)
+        game.addVisual(opcionFacil)
+        game.addVisual(opcionDificil)
+        game.addVisual(opcionInstrucciones)
+        game.addVisual(botonSeleccionado)
+        botonSeleccionado.moverSeleccionado([opcionFacil, opcionDificil, opcionInstrucciones])
+        botonSeleccionado.ejecutar()
+    }
+    method menuInstrucciones() {
+        game.addVisual(pantallaDeInicio)
+        game.addVisual(opcionAtras)
+        game.addVisual(botonSeleccionado)
+        botonSeleccionado.moverSeleccionado([opcionAtras])
+        botonSeleccionado.ejecutar()
+    }
+}

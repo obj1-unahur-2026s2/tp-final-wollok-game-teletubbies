@@ -4,6 +4,10 @@ import mochila.*
 import Teletubbie.*
 
 object mapa {
+    var dificultadActual = "facil"
+
+    method dificultad() = if(dificultadActual == "facil") self.facil() else self.dificil()
+    method dificultadActual(cambiarDificultad) { dificultadActual = cambiarDificultad }
     method facil() {
         /*agrega el personaje y le añade movimiento con las flechas*/
         game.addVisual(piso)
@@ -25,6 +29,7 @@ object mapa {
         const laalaa = new Teletubbie(nombre = "laa-laa", color = "amarillo", patron = new PatrullaVertical(), position = game.at(10, 5))
         laalaa.aparecer() //muchachos esta parte es temporal, estoy testeando el movimiento. Si le cambian el PatrullaVertical por PatrullaHorizontal se va a mover de izquierda a derecha
     }
+    method dificil() {}
 }
 object piso{
     var property position=game.at(0,2)
