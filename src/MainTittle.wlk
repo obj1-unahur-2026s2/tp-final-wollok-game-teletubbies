@@ -25,6 +25,10 @@ del 5% te pueda salir una version macabra del menú
         }
     }
 }
+object titulo{
+    var property position = game.at(9,13)
+    method image()="./assets/Titulo.png"
+}
 
 class OpcionesDelMenu {
     const position
@@ -39,7 +43,7 @@ class OpcionesDelMenu {
 }
 
 object botonSeleccionado {
-    var property position = game.at(13,11)
+    var property position = game.at(13,10)
     const image = "./assets/botones/botonSeleccionado.png"
     var opciones = []
     var indiceActual  = 0
@@ -82,16 +86,16 @@ object botonSeleccionado {
 
 
 const opcionJugar = new OpcionesDelMenu(
-    position = game.at(13, 11), 
+    position = game.at(13, 10), 
     image = "./assets/botones/botonJugar.png",
     accion = { 
       game.clear()
       mapa.facil()
       })
   const opcionOpciones = new OpcionesDelMenu(
-    position = game.at(13,9) , 
+    position = game.at(13,8) , 
     image = "./assets/botones/botonOpciones.png", accion = {} )
-  const opcionSalir = new OpcionesDelMenu(position = game.at(13,7) , image = "./assets/botones/botonSalir.png", accion = {game.stop()} )
+  const opcionSalir = new OpcionesDelMenu(position = game.at(13,6) , image = "./assets/botones/botonSalir.png", accion = {game.stop()} )
   
   object menuInterfaz {
     method menuinter(){
@@ -100,6 +104,7 @@ const opcionJugar = new OpcionesDelMenu(
         game.addVisual(opcionOpciones)
         game.addVisual(opcionSalir)
         game.addVisual(botonSeleccionado)
+        game.addVisual(titulo)
         botonSeleccionado.moverSeleccionado([opcionJugar, opcionOpciones, opcionSalir])
 
         keyboard.enter().onPressDo({
