@@ -6,11 +6,16 @@ object timoty {
     var direccionActual = "front"
     var paso = 0
     var posicionAnterior = game.at(1, 2)
-    var habitacionActual=cocina
+    var habitacionActual = cocina
 
     method cambiarDireccion(nuevaDireccion) {
+        const proximaPosicion = self.calcularProximaPosicion(nuevaDireccion)
         direccionActual = nuevaDireccion
         self.actualizarSprite()
+
+        if (self.puedeMoverseA(proximaPosicion)) {
+            position = proximaPosicion
+        }
     }
 
     method animarCaminata() {
@@ -34,5 +39,26 @@ object timoty {
         } else {
             image = rutaBase + ".png" 
         }
+    }
+
+    method caminar() {
+        keyboard.up().onPressDo({ self.cambiarDireccion("back") })
+        keyboard.down().onPressDo({ self.cambiarDireccion("front") })
+        keyboard.left().onPressDo({ self.cambiarDireccion("right") }) 
+        keyboard.right().onPressDo({ self.cambiarDireccion("left") })
+    }
+
+    method calcularProximaPosicion(direccion) {
+        if (direccion == "back") return position.up(1)
+        if (direccion == "front") return position.down(1)
+        if (direccion == "left") return position.right(1)
+        if (direccion == "right") return position.left(1)
+        return position
+    }
+
+    method puedeMoverseA(pos) {
+        const objetosEnDestino = game.getObjectsIn(pos)
+        
+        return not objetosEnDestino.any({ obj => obj.tieneColision() })
     }
 }

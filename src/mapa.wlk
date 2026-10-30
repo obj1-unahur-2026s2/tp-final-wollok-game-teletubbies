@@ -9,21 +9,15 @@ object mapa {
     method dificultad() = if(dificultadActual == "facil") self.facil() else self.dificil()
     method dificultadActual(cambiarDificultad) { dificultadActual = cambiarDificultad }
     method facil() {
-        /*agrega el personaje y le añade movimiento con las flechas*/
         cocina.dibujarHabitacion()
         game.addVisual(mesa)
         game.addVisual(silla_derecha)
-        game.addVisualCharacter(timoty)
+        game.addVisual(timoty)
         game.addVisual(carta)
         game.addVisual(luz)
         game.addVisual(pared_lateral)
         game.addVisual(mochila)
-        /*cambia direccion del sprite*/
-        keyboard.up().onPressDo({ timoty.cambiarDireccion("back") })
-        keyboard.down().onPressDo({ timoty.cambiarDireccion("front") })
-        keyboard.left().onPressDo({ timoty.cambiarDireccion("right") }) 
-        keyboard.right().onPressDo({ timoty.cambiarDireccion("left") })  
-        
+        timoty.caminar()
         game.onTick(150, "animarTimoty", { timoty.animarCaminata() })
 
         //Teletubbies
@@ -34,36 +28,39 @@ object mapa {
 }
 object piso{
     var property position=game.at(0,2)
-    method image()="./assets/tiles/cocina_piso.png" 
+    method image()="./assets/tiles/cocina_piso.png"
+    method tieneColision() = false
 }
 object pared_frontal {
     var property position=game.at(0,9)
     method image()="./assets/tiles/cocina_pared.png"
+    method tieneColision() = true
 }
 object pared_lateral{
     var property position =game.at(6, 2)
-    method image() ="./assets/tiles/pared_lateral.png" 
+    method image() ="./assets/tiles/pared_lateral.png"
+    method tieneColision() = true
 }
 object mesa {
     var property position =game.at(1, 4)
-    method image() ="./assets/tiles/mesa.png" 
+    method image() ="./assets/tiles/mesa.png"
+    method tieneColision() = true 
 }
 object silla_derecha{
     var property position =game.at(2, 4)
     method image() ="./assets/tiles/silla_derecha.png" 
+    method tieneColision() = true
 }
 object luz{
     var property position =game.at(0, 2)
     method image() ="./assets/tiles/cocina_ventana_luz.png"
+    method tieneColision() = false
 }
 object carta{
     var property position =game.at(0,3)
-    method image() ="./assets/objetos/carta.gif" 
+    method image() ="./assets/objetos/carta.gif"
+    method tieneColision() = true
 }
-
-
-
-
 
 class Habitacion{
     const property objetosConColision=[]
