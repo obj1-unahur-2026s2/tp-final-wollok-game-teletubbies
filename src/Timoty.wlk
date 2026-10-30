@@ -1,3 +1,4 @@
+import mapa.*
 object timoty {
     var property position = game.at(1, 2)
     var property image = "./assets/timoty_sprites/timoty_front.png" 
@@ -5,6 +6,7 @@ object timoty {
     var direccionActual = "front"
     var paso = 0
     var posicionAnterior = game.at(1, 2)
+    var habitacionActual=cocina
 
     method cambiarDireccion(nuevaDireccion) {
         direccionActual = nuevaDireccion
