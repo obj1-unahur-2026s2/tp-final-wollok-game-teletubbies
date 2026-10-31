@@ -20,6 +20,13 @@ class Teletubbie {
   method aparecer() {
     game.addVisual(self)
     game.onTick(200, "ruta" + nombre, { self.avanzar() })
+    game.onTick(50, "captura" + nombre, { self.verificarCaptura() })
+  }
+
+  method verificarCaptura() {
+    if (position == timoty.position()) {
+      timoty.morir()
+    }
   }
 
   method avanzar() {

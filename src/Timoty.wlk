@@ -1,8 +1,10 @@
 import mapa.*
+import screamer.*
 object timoty {
     var property position = game.at(1, 2)
     var property image = "./assets/timoty_sprites/timoty_front.png" 
 
+    var estaVivo = true
     var direccionActual = "front"
     var paso = 0
     var posicionAnterior = game.at(1, 2)
@@ -13,7 +15,7 @@ object timoty {
         direccionActual = nuevaDireccion
         self.actualizarSprite()
 
-        if (self.puedeMoverseA(proximaPosicion)) {
+        if (self.puedeMoverseA(proximaPosicion) && estaVivo) {
             position = proximaPosicion
             habitacionActual = mapa.habitacionEn(position)
         }
@@ -59,5 +61,13 @@ object timoty {
 
     method puedeMoverseA(pos) {
         return not habitacionActual.estaCeldaBloqueada(pos)
+    }
+
+    method morir() {
+      if (estaVivo) {
+        estaVivo = false
+        console.println("Timoty fue atrapado")
+        game.addVisual(screamer)
+      }
     }
 }
