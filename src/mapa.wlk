@@ -157,11 +157,14 @@ object mapa {
         timoty.caminar()
         game.onTick(150, "animarTimoty", { timoty.animarCaminata() })
 
-        //Teletubbies
-        const laalaa = new Teletubbie(nombre = "laa-laa", color = "amarillo", patron = new PatrullaVertical(), position = game.at(10, 5))
-        laalaa.aparecer() //muchachos esta parte es temporal, estoy testeando el movimiento. Si le cambian el PatrullaVertical por PatrullaHorizontal se va a mover de izquierda a derecha
+        //Teletubbies, solo hay que poner el nombre y las coordenadas donde aparecen
+       const laalaa = new LaaLaa(habitacion = salon, position = game.at(9, 3))
+        laalaa.aparecer()
+       const dipsy = new Dipsy(habitacion = pelotero, position = game.at(14, 11))
+        dipsy.aparecer()
     }
     method dificil() {}
+    
 
     //metodo que ayuda a saber en que posicion estamos actualmente
     method habitacionEn(unaPosicion) {
