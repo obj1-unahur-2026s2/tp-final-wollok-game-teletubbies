@@ -6,7 +6,7 @@ object timoty {
     var direccionActual = "front"
     var paso = 0
     var posicionAnterior = game.at(1, 2)
-    var habitacionActual = cocina
+    var property habitacionActual = cocina
 
     method cambiarDireccion(nuevaDireccion) {
         const proximaPosicion = self.calcularProximaPosicion(nuevaDireccion)
@@ -15,6 +15,7 @@ object timoty {
 
         if (self.puedeMoverseA(proximaPosicion)) {
             position = proximaPosicion
+            habitacionActual = mapa.habitacionEn(position)
         }
     }
 
@@ -57,8 +58,6 @@ object timoty {
     }
 
     method puedeMoverseA(pos) {
-        const objetosEnDestino = game.getObjectsIn(pos)
-        
-        return not objetosEnDestino.any({ obj => obj.tieneColision() })
+        return not habitacionActual.estaCeldaBloqueada(pos)
     }
 }
