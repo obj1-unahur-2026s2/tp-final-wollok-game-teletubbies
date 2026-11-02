@@ -2,6 +2,7 @@ import wollok.game.*
 import MainTittle.*
 import mapa.*
 import sonidos.*
+import Timoty.timoty
 
 /*
 Si hay archivos con nombres iguales o parecidos, agreguen "TLTB"
@@ -16,7 +17,6 @@ program juego {
   game.cellSize(50)
   game.title("A Happy Place - Teletubbies escape room")
 
-  
   menuInterfaz.menuInicio()
   gestorSonido.musica()
 

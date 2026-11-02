@@ -2,7 +2,7 @@ import wollok.game.*
 import Timoty.*
 import mochila.*
 import Teletubbie.*
-
+/*
 object piso{
     var property position=game.at(1,2)
     method image()="./assets/tiles/cocina_piso.png"
@@ -12,7 +12,7 @@ object pared_frontal {
     var property position=game.at(1,9)
     method image()="./assets/tiles/cocina_pared.png"
     method tieneColision() = true
-}
+} */
 object luz{
     var property position =game.at(1, 2)
     method image() ="./assets/tiles/cocina_ventana_luz.png"
@@ -42,8 +42,8 @@ class Habitacion{
         game.addVisual(pisoHabitacion)
         game.addVisual(paredAtras)
         puertas.forEach({ p => game.addVisual(p) })
-        /*objetosConColision.forEach({ o => game.addVisual(o) })
-        objetosSinColision.forEach({ o => game.addVisual(o) }) */
+        //objetosConColision.forEach({ o => game.addVisual(o) })
+        //objetosSinColision.forEach({ o => game.addVisual(o) }) 
     }
     method estaCeldaBloqueada(unaPosicion) {
         const puertaEnDestino = puertas.findOrDefault({ p => p.truePosition() == unaPosicion }, null)
@@ -68,16 +68,20 @@ class Habitacion{
 class Piso{
     var property position
     const image
+
     method image()=image
     method tieneColision()=false  
+    method esUsable() = false
 }
 class Pared{
     var property position
     const superficie=[]
     const image
+
     method image()=image
     method tieneColision()=true
     method superficie()=superficie
+    method esUsable() = false
 
     method estaOcupando(unaPosicion) {
         // superficie.get(0) es el ancho, superficie.get(1) es el alto
@@ -98,6 +102,7 @@ class Objetos{
     method image()=image
     method superficie()=superficie
 
+    method esUsable() = false
     method estaOcupando(unaPosicion) {
         // superficie.get(0) es el ancho, superficie.get(1) es el alto
         const xMax = position.x() + superficie.get(0) - 1
@@ -105,6 +110,17 @@ class Objetos{
         
         return unaPosicion.x().between(position.x(), xMax) 
            and unaPosicion.y().between(position.y(), yMax)
+    }
+}
+
+class ObjetoUsable inherits Objetos {
+    override method esUsable() = true
+    method guardar() {
+        game.removeVisual(self)
+        mochila.agregarItem(self)
+        const habitacionActual = mapa.habitacionEn(self.position())
+        habitacionActual.objetosConColision().remove(self)
+        habitacionActual.objetosSinColision().remove(self)
     }
 }
 class Puerta{
@@ -124,7 +140,7 @@ const puerta_peloteroYsalon= new Puerta(position=game.at(18,9),truePosition=game
 const mesa = new Objetos(position = game.at(2, 4), superficie =[1,4], image = "./assets/tiles/mesa.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
 const silla_derecha = new Objetos(position = game.at(3, 4), superficie =[1,2], image = "./assets/tiles/silla_derecha.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
 
-const dados = new Objetos(position = game.at(22,13), superficie = [1,1], image = "./assets/objetos/dados.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
+const dados = new ObjetoUsable(position = game.at(22,13), superficie = [1,1], image = "./assets/objetos/dados.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
 
 const baldosa1 = new Objetos(position = game.at(13,13), superficie = [1,1], image = "./assets/tiles/numeros/baldosa1.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
 const baldosa2 = new Objetos(position = game.at(14,14), superficie = [1,1], image = "./assets/tiles/numeros/baldosa2.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
@@ -137,22 +153,21 @@ const baldosa8 = new Objetos(position = game.at(14,15), superficie = [1,1], imag
 const baldosa9 = new Objetos(position = game.at(14,13), superficie = [1,1], image = "./assets/tiles/numeros/baldosa9.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
 const baldosa10 = new Objetos(position = game.at(13,14), superficie = [1,1], image = "./assets/tiles/numeros/baldosa10.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
 
-const pared_lateral = new Pared(position = game.at(7, 2), superficie =[1,8], image = "./assets/tiles/pared_lateral.png") 
-const paredAtrasSalon=new Pared(position=game.at(7,9),image="./assets/tiles/salon_pared.png",superficie=[16,1])
-const paredAtrasPelotero=new Pared(position=game.at(13,17),image="./assets/tiles/pelotero_pared.png",superficie=[16,1])
+const pared_cocina = new Pared(position = game.at(1,9), image = "./assets/tiles/cocina_pared.png", superficie = [6,1])
+const pared_lateral = new Pared(position = game.at(7,2), superficie =[1,8], image = "./assets/tiles/pared_lateral.png") 
+const paredAtrasSalon = new Pared(position=game.at(7,9),image="./assets/tiles/salon_pared.png",superficie=[16,1])
+const paredAtrasPelotero = new Pared(position=game.at(13,17),image="./assets/tiles/pelotero_pared.png",superficie=[16,1])
 
+const piso_cocina = new Piso(position=game.at(1,2),image="./assets/tiles/cocina_piso.png")
+const piso_salon = new Piso(position=game.at(7,2),image="./assets/tiles/piso_salon.png")
+const piso_pelotero = new Piso(position=game.at(13,10),image="./assets/tiles/piso_pelotero.png")
 
-const piso_salon=new Piso(position=game.at(7,2),image="./assets/tiles/piso_salon.png")
-const piso_pelotero=new Piso(position=game.at(13,10),image="./assets/tiles/piso_pelotero.png")
+const paredInvisible1 = new Pared(position=game.at(13,9),superficie=[5,1],image="./assets/tiles/puerta4.png")
+const paredInvisible2 = new Pared(position=game.at(19,9),superficie=[4,1],image="./assets/tiles/puerta3.png")
 
-
-
-const paredInvisible1=new Pared(position=game.at(13,9),superficie=[5,1],image="./assets/tiles/puerta4.png")
-const paredInvisible2=new Pared(position=game.at(19,9),superficie=[4,1],image="./assets/tiles/puerta3.png")
-
-const cocina=new Habitacion(xMin=1,xMax=6,yMin=2,yMax=8,puertas=[puerta_cocina],pisoHabitacion=piso,paredAtras=pared_frontal,objetosConColision=[mesa,silla_derecha,pared_lateral],objetosSinColision=[piso],nombre="cocina",estaOculto=false)
-const salon=new Habitacion(xMin=7,xMax=22,yMin=2,yMax=8,puertas=[puerta_cocinaYSalon,puerta_salonYpelotero],pisoHabitacion=piso_salon,paredAtras=paredAtrasSalon,nombre="salon",estaOculto=false,objetosConColision=[paredAtrasSalon],objetosSinColision=[piso_salon])
-const pelotero=new Habitacion(xMin=13,xMax=22,yMin=9,yMax=16,puertas=[puerta_peloteroYsalon],pisoHabitacion=piso_pelotero,paredAtras=paredAtrasPelotero,nombre="pelotero",estaOculto=false,objetosConColision=[paredAtrasPelotero,paredInvisible1,paredInvisible2,dados],objetosSinColision=[piso_pelotero,baldosa1])
+const cocina = new Habitacion(xMin=1,xMax=6,yMin=2,yMax=8,puertas=[puerta_cocina],pisoHabitacion=piso_cocina,paredAtras=pared_cocina,objetosConColision=[mesa,silla_derecha,pared_cocina,pared_lateral],objetosSinColision=[piso_cocina],nombre="cocina",estaOculto=false)
+const salon = new Habitacion(xMin=7,xMax=22,yMin=2,yMax=8,puertas=[puerta_cocinaYSalon,puerta_salonYpelotero],pisoHabitacion=piso_salon,paredAtras=paredAtrasSalon,nombre="salon",estaOculto=false,objetosConColision=[paredAtrasSalon],objetosSinColision=[piso_salon])
+const pelotero = new Habitacion(xMin=13,xMax=22,yMin=9,yMax=16,puertas=[puerta_peloteroYsalon],pisoHabitacion=piso_pelotero,paredAtras=paredAtrasPelotero,nombre="pelotero",estaOculto=false,objetosConColision=[paredAtrasPelotero,paredInvisible1,paredInvisible2,dados],objetosSinColision=[piso_pelotero,baldosa1])
 
 
 object mapa {
@@ -184,6 +199,7 @@ object mapa {
         game.addVisual(pared_lateral)
         game.addVisual(mochila)
         timoty.caminar()
+        keyboard.enter().onPressDo({ timoty.agarrarObjeto() })
         game.onTick(150, "animarTimoty", { timoty.animarCaminata() })
 
         //Teletubbies, solo hay que poner el nombre y las coordenadas donde aparecen

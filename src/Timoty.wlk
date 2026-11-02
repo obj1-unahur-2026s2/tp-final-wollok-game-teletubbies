@@ -1,3 +1,4 @@
+import wollok.mirror.*
 import mapa.*
 import screamer.*
 object timoty {
@@ -69,5 +70,17 @@ object timoty {
         console.println("Timoty fue atrapado")
         game.addVisual(screamer)
       }
+    }
+
+    method agarrarObjeto() {
+        const posAdelante = self.calcularProximaPosicion(direccionActual)
+        const objetosAdelante = game.getObjectsIn(posAdelante)
+        const objetoUsable = objetosAdelante.filter({ o => o.esUsable() })
+        
+        if (not objetoUsable.isEmpty()) {
+        const objetoAAgarrar = objetoUsable.uniqueElement()
+        
+        objetoAAgarrar.guardar()
+        }
     }
 }
