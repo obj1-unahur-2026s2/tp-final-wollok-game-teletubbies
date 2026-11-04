@@ -18,7 +18,8 @@ program juego {
   game.title("A Happy Place - Teletubbies escape room")
 
   menuInterfaz.menuInicio()
-  gestorSonido.musica()
+  keyboard.any().onPressDo({ gestorSonido.musica() })
+  game.onClickDo({ posicion => gestorSonido.musica() })
 
   game.start()
 }

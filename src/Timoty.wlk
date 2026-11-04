@@ -50,6 +50,10 @@ object timoty {
         keyboard.down().onPressDo({ self.cambiarDireccion("front") })
         keyboard.left().onPressDo({ self.cambiarDireccion("right") }) 
         keyboard.right().onPressDo({ self.cambiarDireccion("left") })
+        keyboard.w().onPressDo({ self.cambiarDireccion("back") })
+        keyboard.s().onPressDo({ self.cambiarDireccion("front") })
+        keyboard.a().onPressDo({ self.cambiarDireccion("right") }) 
+        keyboard.d().onPressDo({ self.cambiarDireccion("left") })
     }
 
     method calcularProximaPosicion(direccion) {

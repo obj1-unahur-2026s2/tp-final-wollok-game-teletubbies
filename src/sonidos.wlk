@@ -1,8 +1,14 @@
+import wollok.game.*
+
 object gestorSonido {
+    const cancion = game.sound("./assets/sonidos/cancion1.mp3")
+    var reproduciendo = false
+
     method musica() {
-        const musica = game.sound("./assets/musica/MusicaMenu.mp3")
-        
-        musica.shouldLoop(true)
-        game.schedule(500, {musica.play()})
+        if (!reproduciendo) {
+            cancion.shouldLoop(true)
+            cancion.play()
+            reproduciendo = true
+        }
     }
 }
