@@ -87,4 +87,16 @@ object timoty {
         objetoAAgarrar.guardar()
         }
     }
+
+    method interactuarConObjeto() {
+        const posAdelante = self.calcularProximaPosicion(direccionActual)
+        const objetosAdelante = game.getObjectsIn(posAdelante)
+        const objetoPuzzle = objetosAdelante.filter({ o => o.esPuzzle() })
+
+        if (not objetoPuzzle.isEmpty()) {
+        const objetoAInteractuar = objetoPuzzle.uniqueElement()
+        
+        objetoAInteractuar.interactuar()
+        }
+    }
 }

@@ -85,6 +85,7 @@ class Piso{
     method image()=image
     method tieneColision()=false  
     method esUsable() = false
+    method esPuzzle() = false
 }
 class Pared{
     var property position
@@ -95,6 +96,7 @@ class Pared{
     method tieneColision()=true
     method superficie()=superficie
     method esUsable() = false
+    method esPuzzle() = false
 
     method estaOcupando(unaPosicion) {
         // superficie.get(0) es el ancho, superficie.get(1) es el alto
@@ -116,6 +118,7 @@ class Objetos{
     method superficie()=superficie
 
     method esUsable() = false
+    method esPuzzle() = false
     method estaOcupando(unaPosicion) {
         // superficie.get(0) es el ancho, superficie.get(1) es el alto
         const xMax = position.x() + superficie.get(0) - 1
@@ -127,6 +130,9 @@ class Objetos{
 }
 
 class ObjetoUsable inherits Objetos {
+    var property imagenesInventario = []
+    var property spritesInstanciados = []
+
     override method esUsable() = true
     method guardar() {
         game.removeVisual(self)
@@ -134,6 +140,15 @@ class ObjetoUsable inherits Objetos {
         const habitacionActual = mapa.habitacionEn(self.position())
         habitacionActual.objetosConColision().remove(self)
         habitacionActual.objetosSinColision().remove(self)
+    }
+}
+
+class ObjetoPuzzle inherits Objetos {
+    const accion
+
+    override method esPuzzle() = true
+    method interactuar() {
+        accion.apply()
     }
 }
 class Puerta{
@@ -153,11 +168,16 @@ const puerta_peloteroYsalon= new Puerta(position=game.at(18,9),truePosition=game
 const mesa = new Objetos(position = game.at(2, 4), superficie =[1,4], image = "./assets/tiles/mesa.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
 const silla_derecha = new Objetos(position = game.at(3, 4), superficie =[1,2], image = "./assets/tiles/silla_derecha.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
 
-const dados = new ObjetoUsable(position = game.at(22,13), superficie = [1,1], image = "./assets/objetos/dados.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
+const dados = new ObjetoUsable(position = game.at(22,13), superficie = [1,1], image = "./assets/objetos/dados.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/dado1.png","./assets/objetos/objetos_mochila/dado2.png"])
 
 const baldosa1 = new Objetos(position = game.at(13,13), superficie = [1,1], image = "./assets/tiles/numeros/baldosa1.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
 const baldosa2 = new Objetos(position = game.at(14,14), superficie = [1,1], image = "./assets/tiles/numeros/baldosa2.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
-const baldosa3 = new Objetos(position = game.at(13,15), superficie = [1,1], image = "./assets/tiles/numeros/baldosa3.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
+const baldosa3 = new ObjetoPuzzle(position = game.at(13,15), superficie = [1,1], image = "./assets/tiles/numeros/baldosa3.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, accion = {
+    if (not dados.spritesInstanciados().isEmpty()) {
+        const primerSprite = dados.spritesInstanciados().get(0)
+        primerSprite.position(game.at(13,15))
+    }
+})
 const baldosa4 = new Objetos(position = game.at(15,13), superficie = [1,1], image = "./assets/tiles/numeros/baldosa4.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
 const baldosa5 = new Objetos(position = game.at(14,12), superficie = [1,1], image = "./assets/tiles/numeros/baldosa5.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
 const baldosa6 = new Objetos(position = game.at(15,15), superficie = [1,1], image = "./assets/tiles/numeros/baldosa6.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
@@ -206,7 +226,10 @@ object mapa {
         game.addVisual(luz)
         game.addVisual(mochila)
         timoty.caminar()
-        keyboard.enter().onPressDo({ timoty.agarrarObjeto() })
+        keyboard.enter().onPressDo({ 
+            timoty.agarrarObjeto()
+            timoty.interactuarConObjeto() 
+        })
         game.onTick(150, "animarTimoty", { timoty.animarCaminata() })
 
         //Teletubbies, solo hay que poner el nombre y las coordenadas donde aparecen

@@ -37,7 +37,7 @@ class OpcionesDelMenu {
 
     method position() = position
     method image() = image
-    method onclick(){
+    method interactuar(){
         accion.apply() 
     }
 }
@@ -61,7 +61,7 @@ object botonSeleccionado {
 
         keyboard.enter().onPressDo({
             const opcionActual = opciones.get(indiceActual)
-            opcionActual.onclick() 
+            opcionActual.interactuar() 
         })
     }
 
