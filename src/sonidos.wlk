@@ -1,14 +1,29 @@
 import wollok.game.*
 
-object gestorSonido {
-    const cancion = game.sound("./assets/sonidos/cancion1.mp3")
-    var reproduciendo = false
+class Sonido{
+    const sonido
 
-    method musica() {
-        if (!reproduciendo) {
-            cancion.shouldLoop(true)
-            cancion.play()
-            reproduciendo = true
-        }
+    method reproducir(){
+        sonido.play()
+    }
+
+}
+// Puedes modificar a voluntad si se repite o no
+class Musica inherits Sonido{
+    method seRepite(bool){
+        sonido.shouldLoop(bool)
     }
 }
+// Simplemente llamas al objeto y le pones "reproducir()"
+const cancion1 = new Musica(sonido = game.sound("./assets/sonidos/cancion1.mp3"))
+const cancion2 = new Musica(sonido = game.sound("./assets/sonidos/cancion2.mp3"))
+const cancion3 = new Musica(sonido = game.sound("./assets/sonidos/cancion3.mp3"))
+const paso1 = new Sonido(sonido = game.sound("./assets/sonidos/paso1.mp3")) 
+const paso2 = new Sonido(sonido = game.sound("./assets/sonidos/paso2.mp3"))
+const paso3 = new Sonido(sonido = game.sound("./assets/sonidos/paso3.mp3"))
+const paso4 = new Sonido(sonido = game.sound("./assets/sonidos/paso4.mp3"))
+const agarrarItem = new Sonido(sonido = game.sound("./assets/sonidos/agarrarItem.mp3"))
+const ventanaDeDia = new Sonido(sonido = game.sound("./assets/sonidos/avesCantando.mp3"))
+const jumpscare1 = new Sonido(sonido = game.sound("./assets/sonidos/jumpscare1.mp3"))
+const dado = new Sonido(sonido = game.sound("./assets/sonidos/madera1.mp3"))
+const sonidoAmbiente = new Sonido(sonido = game.sound("./assets/sonidos/sonidoDeTerror.mp3"))
