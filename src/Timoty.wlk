@@ -11,6 +11,7 @@ object timoty {
     var posicionAnterior = game.at(1, 2)
     var property habitacionActual = cocina
 
+    method direccionActual() = direccionActual
     method cambiarDireccion(nuevaDireccion) {
         const proximaPosicion = self.calcularProximaPosicion(nuevaDireccion)
         direccionActual = nuevaDireccion

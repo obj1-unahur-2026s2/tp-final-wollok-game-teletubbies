@@ -155,7 +155,10 @@ class Puerta{
    const property position
    const property truePosition 
    const property image
-   var estaAbierta = true
+   var estaAbierta = false
+   
+   method esPuzzle() = false
+   method esUsable() = false
    method estaAbierta() = estaAbierta
    method desbloquearPuerta() { estaAbierta = true }
 }
@@ -164,16 +167,23 @@ const puerta_cocina = new Puerta(position=game.at(6,4),truePosition=game.at(7,4)
 const puerta_cocinaYSalon = new Puerta(position=game.at(7,4),truePosition=game.at(6,4),image="./assets/tiles/puerta.png")
 const puerta_salonYpelotero = new Puerta(position=game.at(18,9),truePosition=game.at(18,9),image="./assets/tiles/puerta3.png")
 const puerta_peloteroYsalon = new Puerta(position=game.at(18,9),truePosition=game.at(18,8),image="./assets/tiles/puerta4.png")
-/*const puerta_pelotero = new Puerta(position=game.at(12,11),truePosition=game.at(12,11),image="./assets/tiles/puerta2.png")
-const puerta_pelotero2 = new Puerta(position=game.at(13,11),truePosition=game.at(13,11),image="./assets/tiles/puerta2.png")
-*/
+const puerta_pelotero = new Puerta(position=game.at(12,11),truePosition=game.at(13,11),image="./assets/tiles/puerta2.png")
+const puerta_pelotero2 = new Puerta(position=game.at(13,11),truePosition=game.at(12,11),image="./assets/tiles/puerta.png")
+
 const mesa = new Objetos(position = game.at(2, 4), superficie =[1,4], image = "./assets/tiles/mesa.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
 const silla_derecha = new Objetos(position = game.at(3, 4), superficie =[1,2], image = "./assets/tiles/silla_derecha.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
 
 const dados = new ObjetoUsable(position = game.at(22,13), superficie = [1,1], image = "./assets/objetos/dados.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/dado3.png","./assets/objetos/objetos_mochila/dado6.png","./assets/objetos/objetos_mochila/dado5.png"])
+const mazo = new ObjetoUsable(position = game.at(2,4), superficie = [1,1], image = "./assets/objetos/objetos_mochila/mazo.jpeg", ordenDeDibujado = 2, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/mazo.jpeg"])
 
 const baldosa1 = new Objetos(position = game.at(13,13), superficie = [1,1], image = "./assets/tiles/numeros/baldosa1.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
 const baldosa2 = new Objetos(position = game.at(14,14), superficie = [1,1], image = "./assets/tiles/numeros/baldosa2.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
+const baldosa4 = new Objetos(position = game.at(15,13), superficie = [1,1], image = "./assets/tiles/numeros/baldosa4.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
+const baldosa7 = new Objetos(position = game.at(15,14), superficie = [1,1], image = "./assets/tiles/numeros/baldosa7.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
+const baldosa8 = new Objetos(position = game.at(14,15), superficie = [1,1], image = "./assets/tiles/numeros/baldosa8.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
+const baldosa9 = new Objetos(position = game.at(14,13), superficie = [1,1], image = "./assets/tiles/numeros/baldosa9.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
+const baldosa10 = new Objetos(position = game.at(13,14), superficie = [1,1], image = "./assets/tiles/numeros/baldosa10.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
+
 const baldosa3 = new ObjetoPuzzle(position = game.at(13,15), superficie = [1,1], image = "./assets/tiles/numeros/baldosa3.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, accion = {
     if (not dados.spritesInstanciados().isEmpty()) {
         const dado3 = dados.spritesInstanciados().get(0)
@@ -182,7 +192,6 @@ const baldosa3 = new ObjetoPuzzle(position = game.at(13,15), superficie = [1,1],
         game.addVisual(timoty)
     }
 })
-const baldosa4 = new Objetos(position = game.at(15,13), superficie = [1,1], image = "./assets/tiles/numeros/baldosa4.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
 const baldosa5 = new ObjetoPuzzle(position = game.at(14,12), superficie = [1,1], image = "./assets/tiles/numeros/baldosa5.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, accion = {
     if (not dados.spritesInstanciados().isEmpty()) {
         const dado5 = dados.spritesInstanciados().get(2)
@@ -199,10 +208,16 @@ const baldosa6 = new ObjetoPuzzle(position = game.at(15,15), superficie = [1,1],
         game.addVisual(timoty)
     }
 })
-const baldosa7 = new Objetos(position = game.at(15,14), superficie = [1,1], image = "./assets/tiles/numeros/baldosa7.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
-const baldosa8 = new Objetos(position = game.at(14,15), superficie = [1,1], image = "./assets/tiles/numeros/baldosa8.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
-const baldosa9 = new Objetos(position = game.at(14,13), superficie = [1,1], image = "./assets/tiles/numeros/baldosa9.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
-const baldosa10 = new Objetos(position = game.at(13,14), superficie = [1,1], image = "./assets/tiles/numeros/baldosa10.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
+
+const bloqueoPuertaCocinaSalon = new ObjetoPuzzle(position = game.at(7,4), superficie = [1,1], image = "./assets/tiles/puerta4.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, accion = {
+    if (not mazo.spritesInstanciados().isEmpty()) {
+        const habitacionActual = mapa.habitacionEn(bloqueoPuertaCocinaSalon.position())
+        habitacionActual.objetosSinColision().remove(bloqueoPuertaCocinaSalon)
+        puerta_cocinaYSalon.desbloquearPuerta()
+        puerta_cocina.desbloquearPuerta()
+        mochila.sacarItem(mazo)
+    }
+})
 
 const pared_cocina = new Pared(position = game.at(1,9), image = "./assets/tiles/cocina_pared.png", superficie = [6,1])
 const pared_lateral = new Pared(position = game.at(7,2), superficie =[1,8], image = "./assets/tiles/pared_lateral.png") 
@@ -213,7 +228,6 @@ const pared_lateral_pelotero = new Pared(position=game.at(23,10),image="./assets
 const pared_lateral_cocina2 = new Pared(position=game.at(0,2),image="./assets/tiles/pared_lateral.png",superficie=[1,8])
 
 
-
 const piso_cocina = new Piso(position=game.at(1,2),image="./assets/tiles/cocina_piso.png")
 const piso_salon = new Piso(position=game.at(7,2),image="./assets/tiles/piso_salon.png")
 const piso_pelotero = new Piso(position=game.at(13,10),image="./assets/tiles/piso_pelotero.png")
@@ -221,9 +235,9 @@ const piso_pelotero = new Piso(position=game.at(13,10),image="./assets/tiles/pis
 const paredInvisible1 = new Pared(position=game.at(13,9),superficie=[5,1],image="./assets/tiles/puerta4.png")
 const paredInvisible2 = new Pared(position=game.at(19,9),superficie=[4,1],image="./assets/tiles/puerta4.png")
 
-const cocina = new Habitacion(xMin=1,xMax=6,yMin=2,yMax=8,puertas=[puerta_cocina],pisoHabitacion=piso_cocina,paredAtras=pared_cocina,objetosConColision=[mesa,silla_derecha],objetosSinColision=[],nombre="cocina",estaOculto=false)
-const salon = new Habitacion(xMin=7,xMax=22,yMin=2,yMax=8,puertas=[puerta_cocinaYSalon,puerta_salonYpelotero],pisoHabitacion=piso_salon,paredAtras=paredAtrasSalon,nombre="salon",estaOculto=false,objetosConColision=[],objetosSinColision=[pared_lateral,pared_lateral_salon])
-const pelotero = new Habitacion(xMin=13,xMax=22,yMin=9,yMax=16,puertas=[puerta_peloteroYsalon/*puerta_pelotero,puerta_pelotero2*/],pisoHabitacion=piso_pelotero,paredAtras=paredAtrasPelotero,nombre="pelotero",estaOculto=false,objetosConColision=[paredInvisible1,paredInvisible2,dados],objetosSinColision=[pared_lateral_pelotero,baldosa1,baldosa2,baldosa3,baldosa4,baldosa5,baldosa6,baldosa7,baldosa8,baldosa9,baldosa10])
+const cocina = new Habitacion(xMin=1,xMax=6,yMin=2,yMax=8,puertas=[puerta_cocina],pisoHabitacion=piso_cocina,paredAtras=pared_cocina,objetosConColision=[mesa,silla_derecha,mazo],objetosSinColision=[],nombre="cocina",estaOculto=false)
+const salon = new Habitacion(xMin=7,xMax=22,yMin=2,yMax=8,puertas=[puerta_cocinaYSalon,puerta_salonYpelotero],pisoHabitacion=piso_salon,paredAtras=paredAtrasSalon,nombre="salon",estaOculto=false,objetosConColision=[],objetosSinColision=[pared_lateral,pared_lateral_salon,bloqueoPuertaCocinaSalon])
+const pelotero = new Habitacion(xMin=13,xMax=22,yMin=9,yMax=16,puertas=[puerta_peloteroYsalon,puerta_pelotero,puerta_pelotero2],pisoHabitacion=piso_pelotero,paredAtras=paredAtrasPelotero,nombre="pelotero",estaOculto=false,objetosConColision=[paredInvisible1,paredInvisible2,dados],objetosSinColision=[pared_lateral_pelotero,baldosa1,baldosa2,baldosa3,baldosa4,baldosa5,baldosa6,baldosa7,baldosa8,baldosa9,baldosa10])
 
 
 object mapa {

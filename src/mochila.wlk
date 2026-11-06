@@ -9,7 +9,15 @@ object mochila {
     items.add(nuevoItem) 
     self.dibujarSpritesEnBarra(nuevoItem)
   }
-  method sacarItem(nuevoItem) { items.remove(nuevoItem) }
+  method sacarItem(nuevoItem) { 
+    items.remove(nuevoItem)
+    nuevoItem.spritesInstanciados().forEach({ sprite =>
+      game.removeVisual(sprite) // <--- ESTO los borra físicamente de la pantalla
+    })
+    
+    nuevoItem.spritesInstanciados().clear()
+    cantidadSpritesEnBarra = 0.max(cantidadSpritesEnBarra - nuevoItem.imagenesInventario().size())
+  }
 
   method dibujarSpritesEnBarra(nuevoItem) {
      nuevoItem.imagenesInventario().forEach({ img =>
