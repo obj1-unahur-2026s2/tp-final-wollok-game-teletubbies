@@ -57,7 +57,7 @@ class Teletubbie {
 
   method repetir(unPaso, veces) = (1..veces).map({ i => unPaso })
 
-    
+  method esEnemigo() = true
 }
 
 // Voy creando las subclasses a medida que añadamos los niveles

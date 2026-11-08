@@ -12,7 +12,7 @@ object mochila {
   method sacarItem(nuevoItem) { 
     items.remove(nuevoItem)
     nuevoItem.spritesInstanciados().forEach({ sprite =>
-      game.removeVisual(sprite) // <--- ESTO los borra físicamente de la pantalla
+      game.removeVisual(sprite)
     })
     
     nuevoItem.spritesInstanciados().clear()

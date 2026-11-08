@@ -11,6 +11,7 @@ object timoty {
     var posicionAnterior = game.at(1, 2)
     var property habitacionActual = cocina
 
+    method esEnemigo() = false
     method direccionActual() = direccionActual
     method cambiarDireccion(nuevaDireccion) {
         const proximaPosicion = self.calcularProximaPosicion(nuevaDireccion)
@@ -95,9 +96,8 @@ object timoty {
         const objetoPuzzle = objetosAdelante.filter({ o => o.esPuzzle() })
 
         if (not objetoPuzzle.isEmpty()) {
-        const objetoAInteractuar = objetoPuzzle.uniqueElement()
-        
-        objetoAInteractuar.interactuar()
+            const objetoAInteractuar = objetoPuzzle.uniqueElement()
+            objetoAInteractuar.interactuar()
         }
     }
 }
