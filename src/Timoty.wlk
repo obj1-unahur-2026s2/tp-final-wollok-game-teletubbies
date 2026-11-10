@@ -85,7 +85,8 @@ object timoty {
         
         if (not objetoUsable.isEmpty()) {
         const objetoAAgarrar = objetoUsable.uniqueElement()
-        
+
+        objetoAAgarrar.mostrarDescripcion()
         objetoAAgarrar.guardar()
         }
     }

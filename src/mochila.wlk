@@ -20,7 +20,7 @@ object mochila {
   }
 
   method dibujarSpritesEnBarra(nuevoItem) {
-     nuevoItem.imagenesInventario().forEach({ img =>
+    nuevoItem.imagenesInventario().forEach({ img =>
       const spriteInventario = new SpriteMochila(
         image = img,
         position = game.at(cantidadSpritesEnBarra, 0)
@@ -34,5 +34,5 @@ object mochila {
 
 class SpriteMochila {
   var property image
-  var property position 
+  var property position
 }
