@@ -128,14 +128,30 @@ class ObjetoUsable inherits Objetos {
         habitacionActual.objetosSinColision().remove(self)
     }
     method mostrarDescripcion() {
-        const miCartel = new CartelDescripcion(image = descripcion)
-        game.addVisual(miCartel) 
-        game.schedule(3000, { game.removeVisual(miCartel) })
+        cartelDescripcion.mostrar(descripcion)
     }
 }
-class CartelDescripcion {
-    const property position = game.at(23,2)
-    var property image
+object cartelDescripcion {
+    const property position = game.at(23, 2)
+    var property image = null
+    var estaVisible = false
+
+    method mostrar(nuevaImagen) {
+        if (nuevaImagen != null) {
+            if (estaVisible) {
+                game.removeVisual(self)
+            }
+            image = nuevaImagen
+            game.addVisual(self)
+            estaVisible = true
+        }
+    }
+    method ocultar() {
+        if (estaVisible) {
+            game.removeVisual(self)
+            estaVisible = false
+        }
+    }
 }
 
 class ObjetoPuzzle inherits Objetos {
@@ -170,10 +186,10 @@ const luz = new Objetos(position = game.at(1, 2), superficie =[1,1], image = "./
 const mesa = new Objetos(position = game.at(2, 4), superficie =[1,4], image = "./assets/tiles/mesa.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
 const silla_derecha = new Objetos(position = game.at(3, 4), superficie =[1,2], image = "./assets/tiles/silla_derecha.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
 
-const dados = new ObjetoUsable(position = game.at(22,13), superficie = [1,1], image = "./assets/objetos/dados.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/dado3.png","./assets/objetos/objetos_mochila/dado6.png","./assets/objetos/objetos_mochila/dado5.png"], descripcion = [])
-const mazo = new ObjetoUsable(position = game.at(2,4), superficie = [1,1], image = "./assets/objetos/objetos_mochila/martillo.png", ordenDeDibujado = 2, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/martillo.png"], descripcion = [])
-const pastel = new ObjetoUsable(position = game.at(15,4), superficie = [1,1], image = "./assets/objetos/objetos_mochila/pastel.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/pastel.png"], descripcion = ["./assets/ui/cuadro_de_texto.png"])
-const cuchillo = new ObjetoUsable(position = game.at(8,4), superficie = [1,1], image = "./assets/objetos/objetos_mochila/cuchillo.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/cuchillo.png"], descripcion = [])
+const dados = new ObjetoUsable(position = game.at(22,13), superficie = [1,1], image = "./assets/objetos/dados.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/dado3.png","./assets/objetos/objetos_mochila/dado6.png","./assets/objetos/objetos_mochila/dado5.png"], descripcion = null)
+const mazo = new ObjetoUsable(position = game.at(2,4), superficie = [1,1], image = "./assets/objetos/objetos_mochila/martillo.png", ordenDeDibujado = 2, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/martillo.png"], descripcion = null)
+const pastel = new ObjetoUsable(position = game.at(15,4), superficie = [1,1], image = "./assets/objetos/objetos_mochila/pastel.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/pastel.png"], descripcion = "./assets/ui/cuadro_de_texto.png")
+const cuchillo = new ObjetoUsable(position = game.at(8,4), superficie = [1,1], image = "./assets/objetos/objetos_mochila/cuchillo.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/cuchillo.png"], descripcion = null)
 
 const baldosa1 = new Objetos(position = game.at(13,13), superficie = [1,1], image = "./assets/tiles/numeros/baldosa1.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
 const baldosa2 = new Objetos(position = game.at(14,14), superficie = [1,1], image = "./assets/tiles/numeros/baldosa2.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
@@ -285,6 +301,7 @@ object mapa {
         laalaa.aparecer()
        const dipsy = new Dipsy(habitacion = pelotero, position = game.at(14, 11))
         dipsy.aparecer()
+        temporizador.iniciar(900)
     }
     method dificil() {
         game.addVisual(fondo)
@@ -316,5 +333,30 @@ object mapa {
             unaPosicion.x().between(hab.xMin(), hab.xMax()) and 
             unaPosicion.y().between(hab.yMin(), hab.yMax()) 
         })
+    }
+}
+
+object temporizador {
+    var segundosRestantes = 120
+    const property position = game.at(15, 18)
+
+    method texto() = "Tiempo: " + segundosRestantes.toString() + "s"
+    method textoColor() = "FFFFFF"
+
+    method iniciar(tiempoInicial) {
+        segundosRestantes = tiempoInicial
+        game.addVisual(self)
+        
+        game.onTick(1000, "cuentaRegresiva", {
+            segundosRestantes -= 1
+            if (segundosRestantes <= 0) {
+                self.detener()
+                timoty.morir()
+            }
+        })
+    }
+
+    method detener() {
+        game.removeTickEvent("cuentaRegresiva")
     }
 }
