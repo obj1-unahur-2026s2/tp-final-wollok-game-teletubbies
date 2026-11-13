@@ -212,11 +212,11 @@ const mesa = new Objetos(position = game.at(2, 4), superficie =[1,4], image = ".
 const silla_derecha = new Objetos(position = game.at(3, 4), superficie =[1,2], image = "./assets/tiles/silla_derecha.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
 const patitas = new Objetos(position = game.at(9, 4), superficie =[1,2], image = "./assets/tiles/patitas.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
 
-const dados = new ObjetoUsable(position = game.at(22,13), superficie = [1,1], image = "./assets/objetos/dados.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/dado3.png","./assets/objetos/objetos_mochila/dado6.png","./assets/objetos/objetos_mochila/dado5.png"], descripcion = null)
-const mazo = new ObjetoUsable(position = game.at(2,4), superficie = [1,1], image = "./assets/objetos/objetos_mochila/martillo.png", ordenDeDibujado = 2, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/martillo.png"], descripcion = null)
+const dados = new ObjetoUsable(position = game.at(22,13), superficie = [1,1], image = "./assets/objetos/dados.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/dado3.png","./assets/objetos/objetos_mochila/dado6.png","./assets/objetos/objetos_mochila/dado5.png"], descripcion = "./assets/ui/descripcionDados.png")
+const mazo = new ObjetoUsable(position = game.at(2,4), superficie = [1,1], image = "./assets/objetos/objetos_mochila/martillo.png", ordenDeDibujado = 2, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/martillo.png"], descripcion = "./assets/ui/descripcionMazo.png")
 const pastel = new ObjetoUsable(position = game.at(15,4), superficie = [1,1], image = "./assets/objetos/objetos_mochila/pastel.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/pastel.png"], descripcion = "./assets/ui/descripcionPastel.png")
-const cuchillo = new ObjetoUsable(position = game.at(8,4), superficie = [1,1], image = "./assets/objetos/objetos_mochila/cuchillo.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/cuchillo.png"], descripcion = null)
-const llave = new ObjetoUsable(position = game.at(14,9), superficie = [1,1], image = "./assets/objetos/objetos_mochila/llave.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, imagenesInventario = ["./assets/objetos/objetos_mochila/llave.png"], descripcion = null)
+const cuchillo = new ObjetoUsable(position = game.at(8,4), superficie = [1,1], image = "./assets/objetos/objetos_mochila/cuchillo.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/cuchillo.png"], descripcion = "./assets/ui/descripcionCuchillo.png")
+const llave = new ObjetoUsable(position = game.at(14,9), superficie = [1,1], image = "./assets/objetos/objetos_mochila/llave.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, imagenesInventario = ["./assets/objetos/objetos_mochila/llave.png"], descripcion = "./assets/ui/descripcionLlave.png")
 
 const baldosa1 = new Objetos(position = game.at(13,13), superficie = [1,1], image = "./assets/tiles/numeros/baldosa1.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
 const baldosa2 = new Objetos(position = game.at(14,14), superficie = [1,1], image = "./assets/tiles/numeros/baldosa2.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
@@ -356,7 +356,7 @@ object mapa {
         laalaa.aparecer()
        const dipsy = new Dipsy(habitacion = pelotero, position = game.at(14, 11))
         dipsy.aparecer()
-        temporizador.iniciar(900)
+        temporizador.iniciar(240)
     }
     method dificil() {
         game.addVisual(fondo)
@@ -380,7 +380,7 @@ object mapa {
         laalaa.aparecer()
        const dipsy = new Dipsy(habitacion = pelotero, position = game.at(14, 11))
         dipsy.aparecer()
-        temporizador.iniciar(400)
+        temporizador.iniciar(120)
     }
     
     //metodo que ayuda a saber en que posicion estamos actualmente
