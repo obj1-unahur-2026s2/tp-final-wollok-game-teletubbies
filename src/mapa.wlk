@@ -31,12 +31,23 @@ class Habitacion{
     var property yMin
     var property yMax
 
+    method dibujarObjetosConOrden(orden) {
+        objetosConColision
+            .filter({ obj => obj.ordenDeDibujado() == orden })
+            .forEach({ obj => game.addVisual(obj) })
+
+        objetosSinColision
+            .filter({ obj => obj.ordenDeDibujado() == orden })
+            .forEach({ obj => game.addVisual(obj) })
+    }
+
     method dibujarHabitacion(){
         game.addVisual(pisoHabitacion)
         game.addVisual(paredAtras)
         puertas.forEach({ p => game.addVisual(p) })
-        objetosConColision.forEach({ o => game.addVisual(o) })
-        objetosSinColision.forEach({ o => game.addVisual(o) })
+        self.dibujarObjetosConOrden(1)
+        self.dibujarObjetosConOrden(2)
+        self.dibujarObjetosConOrden(3)
     }
     method estaCeldaBloqueada(unaPosicion) {
         const puertaEnDestino = puertas.findOrDefault({ p => p.truePosition() == unaPosicion }, null)
@@ -71,6 +82,7 @@ class Pared{
     var property position
     const superficie=[]
     const image
+    const property ordenDeDibujado = 1
 
     method image()=image
     method tieneColision()=true
@@ -205,18 +217,28 @@ const puerta_salonYpelotero = new Puerta(position=game.at(18,9),truePosition=gam
 const puerta_peloteroYsalon = new Puerta(position=game.at(18,9),truePosition=game.at(18,8),image="./assets/tiles/puerta4.png")
 const puerta_pelotero = new Puerta(position=game.at(12,11),truePosition=game.at(13,11),image="./assets/tiles/puerta2.png")
 const puerta_pelotero2 = new Puerta(position=game.at(13,11),truePosition=game.at(12,11),image="./assets/tiles/puerta.png")
+const puerta_pelotas = new Puerta(position=game.at(20,15),truePosition=game.at(18,17),image="./assets/tiles/puerta.png",estaAbierta=true)
+
 
 const carta = new Objetos(position = game.at(1, 3), superficie =[1,1], image = "./assets/objetos/carta.gif", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
 const luz = new Objetos(position = game.at(1, 2), superficie =[1,1], image = "./assets/tiles/cocina_ventana_luz.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
 const mesa = new Objetos(position = game.at(2, 4), superficie =[1,4], image = "./assets/tiles/mesa.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
 const silla_derecha = new Objetos(position = game.at(3, 4), superficie =[1,2], image = "./assets/tiles/silla_derecha.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
-const patitas = new Objetos(position = game.at(9, 4), superficie =[1,2], image = "./assets/tiles/patitas.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
+const silla_izquierda = new Objetos(position = game.at(1, 5), superficie =[1,2], image = "./assets/tiles/silla_izquierda.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
 
-const dados = new ObjetoUsable(position = game.at(22,13), superficie = [1,1], image = "./assets/objetos/dados.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/dado3.png","./assets/objetos/objetos_mochila/dado6.png","./assets/objetos/objetos_mochila/dado5.png"], descripcion = "./assets/ui/descripcionDados.png")
-const mazo = new ObjetoUsable(position = game.at(2,4), superficie = [1,1], image = "./assets/objetos/objetos_mochila/martillo.png", ordenDeDibujado = 2, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/martillo.png"], descripcion = "./assets/ui/descripcionMazo.png")
-const pastel = new ObjetoUsable(position = game.at(15,4), superficie = [1,1], image = "./assets/objetos/objetos_mochila/pastel.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/pastel.png"], descripcion = "./assets/ui/descripcionPastel.png")
-const cuchillo = new ObjetoUsable(position = game.at(8,4), superficie = [1,1], image = "./assets/objetos/objetos_mochila/cuchillo.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/cuchillo.png"], descripcion = "./assets/ui/descripcionCuchillo.png")
-const llave = new ObjetoUsable(position = game.at(14,9), superficie = [1,1], image = "./assets/objetos/objetos_mochila/llave.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, imagenesInventario = ["./assets/objetos/objetos_mochila/llave.png"], descripcion = "./assets/ui/descripcionLlave.png")
+const sillones= new Objetos(position = game.at(17, 16), superficie =[1,1], image = "./assets/objetos/sillones.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
+const patitas = new Objetos(position = game.at(9, 4), superficie =[1,2], image = "./assets/tiles/patitas.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
+const linea_pelotas1 = new Objetos(position = game.at(20,16),superficie=[3,1], image="./assets/tiles/linea_pelotas.png",ordenDeDibujado = 2, vaAdelanteDeTimothy = false, tieneColision = false)
+const linea_pelotas2 = new Objetos(position = game.at(20,15),superficie=[3,1], image="./assets/tiles/linea_pelotas.png",ordenDeDibujado = 2, vaAdelanteDeTimothy = false, tieneColision = false)
+const linea_pelotas3 = new Objetos(position = game.at(20,14),superficie=[3,1], image="./assets/tiles/linea_pelotas.png",ordenDeDibujado = 2, vaAdelanteDeTimothy = false, tieneColision = false)
+const arco_pelotas = new Objetos(position = game.at(22,15),superficie=[1,3], image="./assets/tiles/arco_pelotas.png",ordenDeDibujado = 3, vaAdelanteDeTimothy = false, tieneColision = false)
+
+
+const dados = new ObjetoUsable(position = game.at(22,13), superficie = [1,1], image = "./assets/objetos/dados.png", ordenDeDibujado = 3, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/dado3_mochila.png","./assets/objetos/objetos_mochila/dado6_mochila.png","./assets/objetos/objetos_mochila/dado5_mochila.png"], descripcion = "./assets/ui/descripcionDados.png")
+const mazo = new ObjetoUsable(position = game.at(2,4), superficie = [1,1], image = "./assets/objetos/martillo.png", ordenDeDibujado = 2, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/martillo_mochila.png"], descripcion = "./assets/ui/descripcionMazo.png")
+const pastel = new ObjetoUsable(position = game.at(15,4), superficie = [1,1], image = "./assets/objetos/pastel_cuchillo.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/pastel_cuchillo_mochila.png"], descripcion = "./assets/ui/descripcionPastel.png")
+const cuchillo = new ObjetoUsable(position = game.at(8,4), superficie = [1,1], image = "./assets/objetos/cuchillo.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["./assets/objetos/objetos_mochila/cuchillo_mochila.png"], descripcion = "./assets/ui/descripcionCuchillo.png")
+const llave = new ObjetoUsable(position = game.at(14,9), superficie = [1,1], image = "./assets/objetos/llave.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, imagenesInventario = ["./assets/objetos/objetos_mochila/llave_mochila.png"], descripcion = "./assets/ui/descripcionLlave.png")
 
 const baldosa1 = new Objetos(position = game.at(13,13), superficie = [1,1], image = "./assets/tiles/numeros/baldosa1.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
 const baldosa2 = new Objetos(position = game.at(14,14), superficie = [1,1], image = "./assets/tiles/numeros/baldosa2.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
@@ -267,7 +289,7 @@ const bloqueoPuertaCocinaSalon = new ObjetoPuzzle(position = game.at(7,4), super
 const areaPastel = new ObjetoPuzzle(position = game.at(9,4), superficie = [1,1], image = "./assets/tiles/puerta4.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, accion = {
     if (not pastel.spritesInstanciados().isEmpty()) {
         mochila.sacarItem(pastel)
-        const pastelEnSuelo = new ObjetoUsable(position = game.at(9,4),superficie =[1,1],image = "./assets/objetos/objetos_mochila/pastel.png",ordenDeDibujado = 1,vaAdelanteDeTimothy = false,tieneColision = false,imagenesInventario = ["./assets/objetos/objetos_mochila/pastel.png"],descripcion = ["./assets/ui/cuadro_de_texto.png"])
+        const pastelEnSuelo = new ObjetoUsable(position = game.at(9,4),superficie =[1,1],image = "./assets/objetos/pastel_cuchillo.png",ordenDeDibujado = 1,vaAdelanteDeTimothy = false,tieneColision = false,imagenesInventario = ["./assets/objetos/pastel_cuchillo.png"],descripcion = ["./assets/ui/cuadro_de_texto.png"])
         
         game.addVisual(pastelEnSuelo)
         
@@ -311,6 +333,10 @@ const pared_cocina = new Pared(position = game.at(1,9), image = "./assets/tiles/
 const pared_lateral = new Pared(position = game.at(7,2), superficie =[1,8], image = "./assets/tiles/pared_lateral.png") 
 const paredAtrasSalon = new Pared(position=game.at(7,9),image="./assets/tiles/salon_pared.png",superficie=[16,1])
 const paredAtrasPelotero = new Pared(position=game.at(13,17),image="./assets/tiles/pelotero_pared.png",superficie=[16,1])
+const paredAtrasPelotas = new Pared(position=game.at(20,17),image="./assets/tiles/pelotas_pared.png",superficie=[3,1])
+const paredAdelantePelotas = new Pared(position=game.at(20,14),image="./assets/tiles/pelotas_pared.png",superficie=[3,1],ordenDeDibujado=3)
+
+
 const pared_lateral_salon = new Pared(position=game.at(23,2),image="./assets/tiles/pared_lateral.png",superficie=[1,8])
 const pared_lateral_pelotero = new Pared(position=game.at(23,10),image="./assets/tiles/pared_lateral.png",superficie=[1,8])
 const pared_lateral_pelotero2 = new Pared(position=game.at(13,10),image="./assets/tiles/pared_lateral.png",superficie=[1,8])
@@ -319,13 +345,14 @@ const pared_lateral_cocina2 = new Pared(position=game.at(0,2),image="./assets/ti
 const piso_cocina = new Piso(position=game.at(1,2),image="./assets/tiles/cocina_piso.png")
 const piso_salon = new Piso(position=game.at(7,2),image="./assets/tiles/piso_salon.png")
 const piso_pelotero = new Piso(position=game.at(13,10),image="./assets/tiles/piso_pelotero.png")
+const piso_pelotas = new Piso(position=game.at(20,14),image="./assets/tiles/pelotas_piso.png")
 
 const paredInvisible1 = new Pared(position=game.at(13,9),superficie=[5,1],image="./assets/tiles/puerta4.png")
 const paredInvisible2 = new Pared(position=game.at(19,9),superficie=[4,1],image="./assets/tiles/puerta4.png")
 
-const cocina = new Habitacion(xMin=1,xMax=6,yMin=2,yMax=8,puertas=[puerta_cocina],pisoHabitacion=piso_cocina,paredAtras=pared_cocina,objetosConColision=[mesa,silla_derecha,mazo],objetosSinColision=[carta, luz],nombre="cocina",estaOculto=false)
+const cocina = new Habitacion(xMin=1,xMax=6,yMin=2,yMax=8,puertas=[puerta_cocina],pisoHabitacion=piso_cocina,paredAtras=pared_cocina,objetosConColision=[mesa,silla_derecha,silla_izquierda,mazo],objetosSinColision=[carta, luz],nombre="cocina",estaOculto=false)
 const salon = new Habitacion(xMin=7,xMax=22,yMin=2,yMax=8,puertas=[puerta_cocinaYSalon,puerta_salonYpelotero],pisoHabitacion=piso_salon,paredAtras=paredAtrasSalon,nombre="salon",estaOculto=false,objetosConColision=[pastel],objetosSinColision=[pared_lateral,pared_lateral_salon,bloqueoPuertaCocinaSalon,areaPastel,grieta,patitas])
-const pelotero = new Habitacion(xMin=13,xMax=22,yMin=9,yMax=16,puertas=[puerta_peloteroYsalon,puerta_pelotero,puerta_pelotero2],pisoHabitacion=piso_pelotero,paredAtras=paredAtrasPelotero,nombre="pelotero",estaOculto=false,objetosConColision=[paredInvisible1,paredInvisible2,dados,pared_lateral_pelotero2],objetosSinColision=[pared_lateral_pelotero,baldosa1,baldosa2,baldosa3,baldosa4,baldosa5,baldosa6,baldosa7,baldosa8,baldosa9,baldosa10,bloqueoPuertaSalonPelotero])
+const pelotero = new Habitacion(xMin=13,xMax=22,yMin=9,yMax=16,puertas=[puerta_peloteroYsalon,puerta_pelotero,puerta_pelotero2],pisoHabitacion=piso_pelotero,paredAtras=paredAtrasPelotero,nombre="pelotero",estaOculto=false,objetosConColision=[paredInvisible1,paredInvisible2,dados,sillones,paredAtrasPelotas,paredAdelantePelotas,arco_pelotas],objetosSinColision=[pared_lateral_pelotero,baldosa1,baldosa2,baldosa3,baldosa4,baldosa5,baldosa6,baldosa7,baldosa8,baldosa9,baldosa10,bloqueoPuertaSalonPelotero,pared_lateral_pelotero2,linea_pelotas1,linea_pelotas2,linea_pelotas3])
 
 
 object mapa {
