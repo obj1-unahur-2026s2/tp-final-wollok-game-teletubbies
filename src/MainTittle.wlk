@@ -143,6 +143,7 @@ const opcionAtras = new OpcionesDelMenu(
 
 object menuInterfaz {
     method menuInicio(){
+        gestorVFX.reproducirMusica("sonidos/cancion1.mp3")
         game.addVisual(pantallaDeInicio)
         game.addVisual(opcionJugar)
         game.addVisual(opcionOpciones)
