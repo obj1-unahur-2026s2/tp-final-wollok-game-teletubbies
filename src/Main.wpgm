@@ -12,9 +12,7 @@ Teletubbies. Por ejemplo: "Menu_de_inicio_TLTB.png".
 
 program juego {
 
-  const musica = game.sound("sonidos/cancion2.mp3")
-
-  game.schedule(500, { musica.play() })
+  cancion2.reproducir()
   game.width(31)
   game.height(19)
   game.cellSize(50)

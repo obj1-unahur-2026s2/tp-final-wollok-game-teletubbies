@@ -1,29 +1,64 @@
 import wollok.game.*
 
-class Sonido{
-    const sonido
+object gestorVFX { 
+// Variables y sus getters
+    var sonidos = 1
+    var ambiente = 1
+    var musica = 1
+    var principal = 1
 
-    method reproducir(){
+    method sonidos() = sonidos
+    method ambiente() = ambiente
+    method musica() = musica
+    method principal() = principal
+
+// Volumenes de los sonidos en su valor total
+    method volumenDeSonidos() {return sonidos * principal}
+    method volumenDelAmbiente() {return ambiente * principal}
+    method volumenDeMusica() {return musica * principal}
+
+// Controles de los volumenes de cada sonido
+    method bajarVolumenDelSonido(){sonidos = (sonidos - 0.1).max(0)}
+    method subirVolumenDelSonido(){sonidos = (sonidos + 0.1).min(1)}
+
+    method bajarVolumenDelAmbiente(){ambiente = (ambiente - 0.1).max(0)}
+    method subirVolumenDelAmbiente(){ambiente = (ambiente + 0.1).min(1)}
+
+    method bajarVolumenDeLaMusica(){musica = (musica - 0.1).max(0)}
+    method subirVolumenDeLaMusica(){musica = (musica + 0.1).min(1)}
+
+    method bajarVolumenPrincipal(){principal = (principal - 0.1).max(0)}
+    method subirVolumenPrincipal(){principal = (principal + 0.1).min(1)}
+
+// Los reproductores de cada sonido
+    method reproducirSonido(sonidoAReproducir) {
+        const sonido = game.sound(sonidoAReproducir)
+
+        sonido.volume(self.volumenDeSonidos())
         sonido.play()
     }
 
-}
-// Puedes modificar a voluntad si se repite o no
-class Musica inherits Sonido{
-    method seRepite(bool){
-        sonido.shouldLoop(bool)
+    method reproducirAmbiente(sonidoAmbiente) {
+        const sonido = game.sound(sonidoAmbiente)
+
+        sonido.shouldLoop(true)
+        sonido.volume(self.volumenDelAmbiente())
+        sonido.play()
     }
+
+    method reproducirMusica(musicaARproducir) {
+        const musicon = game.sound(musicaARproducir)
+
+        musicon.shouldLoop(true)
+        musicon.volume(self.volumenDeMusica())
+        musicon.play()
+    }
+
+    method reproducirMusicaUnica(musicaARproducir) {
+        const musicon = game.sound(musicaARproducir)
+
+        musicon.volume(self.volumenDeMusica())
+        musicon.play()
+    }
+
 }
-// Simplemente llamas al objeto y le pones "reproducir()"
-const cancion1 = new Musica(sonido = game.sound("sonidos/cancion1.mp3"))
-const cancion2 = new Musica(sonido = game.sound("sonidos/cancion2.mp3"))
-const cancion3 = new Musica(sonido = game.sound("sonidos/cancion3.mp3"))
-const paso1 = new Sonido(sonido = game.sound("sonidos/paso1.mp3")) 
-const paso2 = new Sonido(sonido = game.sound("sonidos/paso2.mp3"))
-const paso3 = new Sonido(sonido = game.sound("sonidos/paso3.mp3"))
-const paso4 = new Sonido(sonido = game.sound("sonidos/paso4.mp3"))
-const agarrarItem = new Sonido(sonido = game.sound("sonidos/agarrarItem.mp3"))
-const ventanaDeDia = new Sonido(sonido = game.sound("sonidos/avesCantando.mp3"))
-const jumpscare1 = new Sonido(sonido = game.sound("sonidos/jumpscare1.mp3"))
-const dado = new Sonido(sonido = game.sound("sonidos/madera1.mp3"))
-const sonidoAmbiente = new Sonido(sonido = game.sound("sonidos/sonidoDeTerror.mp3"))
