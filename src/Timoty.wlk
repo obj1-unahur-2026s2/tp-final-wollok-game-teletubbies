@@ -1,6 +1,6 @@
 import wollok.mirror.*
 import mapa.*
-import screamer.*
+
 object timoty {
     var property position = game.at(1, 2)
     var property image = "timoty_sprites/timoty_front.png" 
@@ -75,6 +75,7 @@ object timoty {
         estaVivo = false
         console.println("Timoty fue atrapado")
         game.addVisual(screamer)
+        game.schedule(3000, { => game.addVisual(gameOver) })
       }
     }
 
@@ -101,4 +102,14 @@ object timoty {
             objetoAInteractuar.interactuar()
         }
     }
+}
+
+object screamer {
+  var property position = game.origin()
+  method image() = "screamers/laalaa_screamer.png"
+}
+
+object gameOver {
+  var property position = game.origin()
+  method image() = "ui/game_over.png"
 }

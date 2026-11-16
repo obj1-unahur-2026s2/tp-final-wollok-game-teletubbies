@@ -11,15 +11,12 @@ Teletubbies. Por ejemplo: "Menu_de_inicio_TLTB.png".
 */
 
 program juego {
-
-  cancion2.reproducir()
   game.width(31)
   game.height(19)
   game.cellSize(50)
-  game.title("A Happy Place - Teletubbies escape room")
+  game.title("Party-Tubbies - Teletubbies escape room")
 
   menuInterfaz.menuInicio()
-
 
   game.start()
 }

@@ -30,6 +30,10 @@ object titulo{
     var property position = game.at(9,13)
     method image()="Titulo.png"
 }
+object instruccionesMenu { 
+    var property position = game.at(12,5) 
+    method image()="ui/instruccionesMenu.png" 
+}
 
 class OpcionesDelMenu {
     const position
@@ -160,6 +164,7 @@ object menuInterfaz {
     method menuInstrucciones() {
         game.addVisual(pantallaDeInicio)
         game.addVisual(opcionAtras)
+        game.addVisual(instruccionesMenu)
         game.addVisual(botonSeleccionado)
         botonSeleccionado.moverSeleccionado([opcionAtras])
         botonSeleccionado.ejecutar()

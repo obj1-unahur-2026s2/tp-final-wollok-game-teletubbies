@@ -1,12 +1,10 @@
-# A Happy Place
+# Party-Tubbies
 
 ## Equipo de desarrollo
 
 - Nicolás Gabriel Vazquez
 - Voda Zarate Lucia Catalina
 - Patricio Alegre Gabriel
-- Centurión Leandro Gustavo
-- Paz Franco Daniel
 
 ## Capturas
 
@@ -14,7 +12,9 @@
 
 ## Reglas de Juego / Instrucciones
 
-(Escribirlas)
+Utiliza objetos para escapar 
+antes de que se acabe el tiempo y te conviertas
+en un teletubbie
 
 
 ## Otros
