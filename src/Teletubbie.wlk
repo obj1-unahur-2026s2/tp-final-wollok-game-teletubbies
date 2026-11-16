@@ -12,7 +12,7 @@ class Teletubbie {
   var paso = 0
 
   method image() =
-    "./assets/teletubbies_sprites/" + nombre + "(" + color + ")/" + nombre + "_" + direccionActual + self.sufijoPaso() + ".png"
+    "teletubbies_sprites/" + nombre + "(" + color + ")/" + nombre + "_" + direccionActual + self.sufijoPaso() + ".png"
 
   method sufijoPaso() =
     if (paso == 1) "_left_foot" else if (paso == 2) "_right_foot" else ""

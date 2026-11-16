@@ -12,14 +12,16 @@ Teletubbies. Por ejemplo: "Menu_de_inicio_TLTB.png".
 
 program juego {
 
+  const musica = game.sound("sonidos/cancion2.mp3")
+
+  game.schedule(500, { musica.play() })
   game.width(31)
   game.height(19)
   game.cellSize(50)
   game.title("A Happy Place - Teletubbies escape room")
 
   menuInterfaz.menuInicio()
-  /*keyboard.any().onPressDo({ gestorSonido.musica() })
-  game.onClickDo({ posicion => gestorSonido.musica() })*/
+
 
   game.start()
 }

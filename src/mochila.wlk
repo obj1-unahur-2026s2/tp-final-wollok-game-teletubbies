@@ -4,7 +4,7 @@ object mochila {
   var cantidadSpritesEnBarra = 0 
   const items = []
 
-  method image()="./assets/ui/fondoMochila.png"
+  method image()="ui/fondoMochila.png"
   method agregarItem(nuevoItem) { 
     items.add(nuevoItem) 
     self.dibujarSpritesEnBarra(nuevoItem)

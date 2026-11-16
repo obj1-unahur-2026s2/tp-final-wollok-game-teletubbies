@@ -3,7 +3,7 @@ import mapa.*
 import screamer.*
 object timoty {
     var property position = game.at(1, 2)
-    var property image = "./assets/timoty_sprites/timoty_front.png" 
+    var property image = "timoty_sprites/timoty_front.png" 
 
     var estaVivo = true
     var direccionActual = "front"
@@ -36,7 +36,7 @@ object timoty {
     }
     
     method actualizarSprite() {
-        const rutaBase = "./assets/timoty_sprites/timoty_" + direccionActual
+        const rutaBase = "timoty_sprites/timoty_" + direccionActual
 
         if (paso == 1) {
             image = rutaBase + "_left_foot.png"

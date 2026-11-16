@@ -1,0 +1,8 @@
+{
+  "name": "tp-final-wollok-game-teletubbies",
+  "version": "1.0.0",
+  "resourceFolder": "assets",
+  "wollokVersion": "4.2.3",
+  "author": "CONIGLIOH",
+  "license": "ISC"
+}

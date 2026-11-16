@@ -1,5 +1,6 @@
 import wollok.game.*
 import mapa.*
+import sonidos.*
 
 object pantallaDeInicio {
 /*
@@ -10,15 +11,15 @@ del 5% te pueda salir una version macabra del menú
   var property position = game.origin()
   const chance = 0.randomUpTo(99)
   const menus = [
-    "./assets/Fondo/Menu_inicio_morado_TLTB.png",
-    "./assets/Fondo/Menu_inicio_rojo_TLTB.png", 
-    "./assets/Fondo/Menu_inicio_verde_TLTB.png",
-    "./assets/Fondo/Menu_inicio_amarillo_TLTB.png" 
+    "fondo/Menu_inicio_morado_TLTB.png",
+    "fondo/Menu_inicio_rojo_TLTB.png", 
+    "fondo/Menu_inicio_verde_TLTB.png",
+    "fondo/Menu_inicio_amarillo_TLTB.png" 
     ]
   var property image = self.elegirFondo()
     method elegirFondo(){
         if (chance < 5){
-            return "./assets/Fondo/Menu_inicio_especial_TLTB.jpg"
+            return "fondo/Menu_inicio_especial_TLTB.jpg"
 
         }else{
             return menus.anyOne()
@@ -27,7 +28,7 @@ del 5% te pueda salir una version macabra del menú
 }
 object titulo{
     var property position = game.at(9,13)
-    method image()="./assets/Titulo.png"
+    method image()="Titulo.png"
 }
 
 class OpcionesDelMenu {
@@ -44,7 +45,7 @@ class OpcionesDelMenu {
 
 object botonSeleccionado {
     var property position = game.at(13,10)
-    const image = "./assets/botones/botonSeleccionado.png"
+    const image = "botones/botonSeleccionado.png"
     var opciones = []
     var indiceActual  = 0
 
@@ -88,26 +89,26 @@ object botonSeleccionado {
 
 const opcionJugar = new OpcionesDelMenu(
     position = game.at(13, 10), 
-    image = "./assets/botones/botonJugar.png",
+    image = "botones/botonJugar.png",
     accion = { 
       game.clear()
       mapa.dificultad()
       })
 const opcionOpciones = new OpcionesDelMenu(
     position = game.at(13,8) , 
-    image = "./assets/botones/botonOpciones.png", 
+    image = "botones/botonOpciones.png", 
     accion = {
         game.clear()
         menuInterfaz.menuOpciones()
     })
 const opcionSalir = new OpcionesDelMenu(
     position = game.at(13,6), 
-    image = "./assets/botones/botonSalir.png", 
+    image = "botones/botonSalir.png", 
     accion = {game.stop()})
 
 const opcionFacil = new OpcionesDelMenu(
     position = game.at(13,10),
-    image = "./assets/botones/botonFacil.png",
+    image = "botones/botonFacil.png",
     accion = {
         mapa.dificultadActual("facil")
         game.clear()
@@ -115,7 +116,7 @@ const opcionFacil = new OpcionesDelMenu(
     })
 const opcionDificil = new OpcionesDelMenu(
     position = game.at(13,8),
-    image = "./assets/botones/botonDificil.png",
+    image = "botones/botonDificil.png",
     accion = {
         mapa.dificultadActual("dificil")
         game.clear()
@@ -123,14 +124,14 @@ const opcionDificil = new OpcionesDelMenu(
     })
 const opcionInstrucciones = new OpcionesDelMenu(
     position = game.at(11.5,6),
-    image = "./assets/botones/botonInstrucciones.png",
+    image = "botones/botonInstrucciones.png",
     accion = {
         game.clear()
         menuInterfaz.menuInstrucciones()
     })
 const opcionAtras = new OpcionesDelMenu(
     position = game.at(13,6),
-    image = "./assets/botones/botonAtras.png",
+    image = "botones/botonAtras.png",
     accion = {
         game.clear()
         menuInterfaz.menuOpciones()
