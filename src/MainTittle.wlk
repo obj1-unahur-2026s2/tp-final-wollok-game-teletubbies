@@ -31,7 +31,7 @@ object titulo{
     method image()="Titulo.png"
 }
 object instruccionesMenu { 
-    var property position = game.at(12,5) 
+    var property position = game.at(0,0) 
     method image()="ui/instruccionesMenu.png" 
 }
 
@@ -134,7 +134,7 @@ const opcionInstrucciones = new OpcionesDelMenu(
         menuInterfaz.menuInstrucciones()
     })
 const opcionAtras = new OpcionesDelMenu(
-    position = game.at(13,6),
+    position = game.at(13,4),
     image = "botones/botonAtras.png",
     accion = {
         game.clear()

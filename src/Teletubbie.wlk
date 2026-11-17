@@ -19,7 +19,6 @@ class Teletubbie {
 
   method aparecer() {
     game.addVisual(self)
-    game.onTick(200, "ruta" + nombre, { self.avanzar() })
     game.onTick(50, "captura" + nombre, { self.verificarCaptura() })
   }
 
@@ -58,6 +57,54 @@ class Teletubbie {
   method repetir(unPaso, veces) = (1..veces).map({ i => unPaso })
 
   method esEnemigo() = true
+
+  var xTimoty = 0
+  var yTimoty= 0
+
+  method estaALaDerecha() {
+    if (xTimoty > self.position().x()) {
+        self.cambiarDireccion("right")
+    }
+  }
+  method estaALaIzquierda() {
+    if (xTimoty < self.position().x()) {
+        self.cambiarDireccion("left")
+    }
+  }
+  method estaArriba() {
+    if (yTimoty > self.position().y()) {
+        game.schedule(1800, { => self.cambiarDireccion("back") })
+    }
+  }
+  method estaAbajo() {
+    if (yTimoty < self.position().y()) {
+        game.schedule(1800, { => self.cambiarDireccion("front") })
+    }
+  }
+
+  method timotyEstaEnEstaHabitacion() =timoty.habitacionActual() == habitacion
+  var turnoHorizontal=true
+  method darUnPaso(){    
+    if (turnoHorizontal) {
+        self.estaALaDerecha()
+        self.estaALaIzquierda()
+    } else {
+        self.estaArriba()
+        self.estaAbajo()
+    }
+    turnoHorizontal = not turnoHorizontal
+  }
+
+  method perseguir() {
+    if (self.timotyEstaEnEstaHabitacion()) {
+        xTimoty = timoty.position().x()
+        yTimoty = timoty.position().y()
+
+      self.darUnPaso()
+    } else {
+        self.avanzar()
+    }
+  }
 }
 
 // Voy creando las subclasses a medida que añadamos los niveles

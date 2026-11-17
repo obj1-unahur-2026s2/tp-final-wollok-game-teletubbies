@@ -1,3 +1,4 @@
+import src.pantallasFinDeJuego.*
 import wollok.mirror.*
 import mapa.*
 
@@ -75,7 +76,7 @@ object timoty {
         estaVivo = false
         console.println("Timoty fue atrapado")
         game.addVisual(screamer)
-        game.schedule(3000, { => game.addVisual(gameOver) })
+        game.schedule(3000, { => pantallaPerdida.pantallaPerdida() })
       }
     }
 
@@ -107,9 +108,4 @@ object timoty {
 object screamer {
   var property position = game.origin()
   method image() = "screamers/laalaa_screamer.png"
-}
-
-object gameOver {
-  var property position = game.origin()
-  method image() = "ui/game_over.png"
 }
