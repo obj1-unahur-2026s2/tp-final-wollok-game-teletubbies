@@ -150,6 +150,14 @@ const opcionAtras = new OpcionesDelMenu(
         game.clear()
         menuInterfaz.menuOpciones()
     })
+const opcionAtras2 = new OpcionesDelMenu(
+    position = game.at(13,4),
+    image = "botones/botonAtras.png",
+    accion = {
+        gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
+        game.clear()
+        menuInterfaz.menuInicio()
+    })
 
 object menuInterfaz {
     method menuInicio(){
@@ -167,8 +175,9 @@ object menuInterfaz {
         game.addVisual(opcionFacil)
         game.addVisual(opcionDificil)
         game.addVisual(opcionInstrucciones)
+        game.addVisual(opcionAtras2)
         game.addVisual(botonSeleccionado)
-        botonSeleccionado.moverSeleccionado([opcionFacil, opcionDificil, opcionInstrucciones])
+        botonSeleccionado.moverSeleccionado([opcionFacil, opcionDificil, opcionInstrucciones, opcionAtras2])
         botonSeleccionado.ejecutar()
     }
     method menuInstrucciones() {
