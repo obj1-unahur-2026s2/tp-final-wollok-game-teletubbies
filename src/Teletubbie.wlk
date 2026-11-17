@@ -28,6 +28,9 @@ class Teletubbie {
     if (position == timoty.position()) {
       timoty.morir()
       gestorSFX.reproducirSonido("sonidos/jumpscare1.mp3")
+      gestorSFX.reproducirSonido("sonidos/muerte.mp3")
+      gestorSFX.quitarTodosLosAmbiente()
+      gestorSFX.quitarMusica()
     }
   }
 

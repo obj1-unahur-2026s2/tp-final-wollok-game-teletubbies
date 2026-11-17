@@ -101,7 +101,7 @@ const opcionJugar = new OpcionesDelMenu(
       gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
       mapa.dificultad()
       gestorSFX.quitarMusica()
-      gestorSFX.reproducirMusica("sonidos/cancion3.mp3")
+      gestorSFX.reproducirAmbiente("sonidos/cancion3.mp3")
       })
 const opcionOpciones = new OpcionesDelMenu(
     position = game.at(13,8) , 

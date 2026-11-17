@@ -1,3 +1,4 @@
+import src.sonidos.*
 import wollok.game.*
 import Timoty.*
 import mochila.*
@@ -190,7 +191,9 @@ class Puerta{
    method esPuzzle() = false
    method esUsable() = false
    method estaAbierta() = estaAbierta
-   method desbloquearPuerta() { estaAbierta = true }
+   method desbloquearPuerta() {
+    estaAbierta = true
+    }
 }
 object puzzleDados {
     var estaResuelto = false
@@ -214,6 +217,7 @@ object puzzleDados {
     method resolver() {
         puerta_pelotero.desbloquearPuerta()
         puerta_pelotero2.desbloquearPuerta()
+        gestorSFX.reproducirSonido("sonidos/puertaAbriendose.mp3")
     }
 }
 
@@ -286,6 +290,8 @@ const bloqueoPuertaCocinaSalon = new ObjetoPuzzle(position = game.at(7,4), super
         habitacionActual.objetosSinColision().remove(bloqueoPuertaCocinaSalon)
         puerta_cocinaYSalon.desbloquearPuerta()
         puerta_cocina.desbloquearPuerta()
+        gestorSFX.reproducirSonido("sonidos/puertaRota.mp3")
+        gestorSFX.reproducirSonido("sonidos/golpeConEco.mp3")
         mochila.sacarItem(mazo)
     }
 })
@@ -314,6 +320,7 @@ const grieta = new ObjetoPuzzle(position = game.at(14,9), superficie = [1,1], im
         mochila.sacarItem(cuchillo)
         const grieta_abierta = new Objetos(position = game.at(14, 9), superficie =[1,1], image = "tiles/grieta_abierta.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
         game.addVisual(grieta_abierta)
+        gestorSFX.reproducirSonido("sonidos/grietaAbriendose.mp3")
         game.addVisual(llave)
 
         const habitacionActual = mapa.habitacionEn(grieta.position())
@@ -331,6 +338,8 @@ const bloqueoPuertaSalonPelotero = new ObjetoPuzzle(position = game.at(18,9), su
         puerta_salonYpelotero.desbloquearPuerta()
         puerta_peloteroYsalon.desbloquearPuerta()
         mochila.sacarItem(llave)
+        gestorSFX.reproducirSonido("sonidos/puertaAbriendose.mp3")
+
     }
 })
 object zonaDeVictoria {

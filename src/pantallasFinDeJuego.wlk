@@ -1,11 +1,15 @@
 import wollok.game.*
 import MainTittle.*
 import mapa.*
+import sonidos.*
+
 
 object pantallaVictoria {
         method pantallaVictoria(){
             game.clear()
             game.addVisual(fondoVictoria)
+            gestorSFX.quitarTodosLosAmbiente()
+            gestorSFX.reproducirMusicaUnica("sonidos/victoria.mp3")
             /*
             game.addVisual(botonReiniciar)
             game.addVisual(botonIrAlMenu)
@@ -19,6 +23,9 @@ object pantallaPerdida {
         method pantallaPerdida(){
             game.clear()
             game.addVisual(fondoPerdida)
+            gestorSFX.quitarTodosLosAmbiente()
+            gestorSFX.reproducirMusicaUnica("sonidos/derrota.mp3")
+            gestorSFX.reproducirAmbiente("sonidos/estatica.mp3")
             /*
             game.addVisual(botonReiniciar)
             game.addVisual(botonIrAlMenu)
