@@ -1,3 +1,4 @@
+import src.sonidos.*
 import mapa.*
 object mochila {
   var property position = game.at(0,0)
@@ -6,6 +7,7 @@ object mochila {
 
   method image()="ui/fondoMochila.png"
   method agregarItem(nuevoItem) { 
+    gestorSFX.reproducirSonido("sonidos/agarrarItem.mp3")
     items.add(nuevoItem) 
     self.dibujarSpritesEnBarra(nuevoItem)
   }

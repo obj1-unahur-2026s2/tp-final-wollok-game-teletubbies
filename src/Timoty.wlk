@@ -1,3 +1,4 @@
+import sonidos.*
 import pantallasFinDeJuego.*
 import wollok.mirror.*
 import mapa.*
@@ -29,6 +30,7 @@ object timoty {
         // si la posición actual es distinta a la anterior, significa que estamos caminando
         if (position != posicionAnterior) {
             paso = (paso + 1) % 4
+            gestorSFX.reproducirSonido("sonidos/paso2.mp3")
             posicionAnterior = position
         } else {
             paso = 0

@@ -1,3 +1,4 @@
+import src.sonidos.*
 import wollok.game.*
 import Timoty.*
 import mapa.*
@@ -26,6 +27,7 @@ class Teletubbie {
   method verificarCaptura() {
     if (position == timoty.position()) {
       timoty.morir()
+      gestorSFX.reproducirSonido("sonidos/jumpscare1.mp3")
     }
   }
 

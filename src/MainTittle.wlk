@@ -72,12 +72,14 @@ object botonSeleccionado {
 
     method irALaSiguiente() {
         if(indiceActual < opciones.size() - 1) {
+            gestorSFX.reproducirSonido("sonidos/sonidoDeMenu2.mp3")
             indiceActual += 1
             self.actualizarPosicion()
         }
     }
     method irALaAnterior() {
         if(indiceActual > 0) {
+            gestorSFX.reproducirSonido("sonidos/sonidoDeMenu2.mp3")
             indiceActual -= 1
             self.actualizarPosicion()
         }
@@ -96,12 +98,16 @@ const opcionJugar = new OpcionesDelMenu(
     image = "botones/botonJugar.png",
     accion = { 
       game.clear()
+      gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
       mapa.dificultad()
+      gestorSFX.quitarMusica()
+      gestorSFX.reproducirMusica("sonidos/cancion3.mp3")
       })
 const opcionOpciones = new OpcionesDelMenu(
     position = game.at(13,8) , 
     image = "botones/botonOpciones.png", 
     accion = {
+        gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
         game.clear()
         menuInterfaz.menuOpciones()
     })
@@ -114,6 +120,7 @@ const opcionFacil = new OpcionesDelMenu(
     position = game.at(13,10),
     image = "botones/botonFacil.png",
     accion = {
+        gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
         mapa.dificultadActual("facil")
         game.clear()
         menuInterfaz.menuInicio()
@@ -122,6 +129,7 @@ const opcionDificil = new OpcionesDelMenu(
     position = game.at(13,8),
     image = "botones/botonDificil.png",
     accion = {
+        gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
         mapa.dificultadActual("dificil")
         game.clear()
         menuInterfaz.menuInicio()
@@ -130,6 +138,7 @@ const opcionInstrucciones = new OpcionesDelMenu(
     position = game.at(11.5,6),
     image = "botones/botonInstrucciones.png",
     accion = {
+        gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
         game.clear()
         menuInterfaz.menuInstrucciones()
     })
@@ -137,13 +146,13 @@ const opcionAtras = new OpcionesDelMenu(
     position = game.at(13,4),
     image = "botones/botonAtras.png",
     accion = {
+        gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
         game.clear()
         menuInterfaz.menuOpciones()
     })
 
 object menuInterfaz {
     method menuInicio(){
-        gestorVFX.reproducirMusica("sonidos/cancion1.mp3")
         game.addVisual(pantallaDeInicio)
         game.addVisual(opcionJugar)
         game.addVisual(opcionOpciones)

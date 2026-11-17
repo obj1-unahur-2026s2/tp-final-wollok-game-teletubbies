@@ -1,6 +1,6 @@
 import wollok.game.*
 
-object gestorVFX {
+object gestorSFX {
 
 // Variables del volumen.
 
