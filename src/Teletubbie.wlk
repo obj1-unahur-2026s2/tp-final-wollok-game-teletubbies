@@ -10,6 +10,7 @@ class Teletubbie {
   var direccionActual = "front"
   var indice = 0
   var paso = 0
+  var turnoHorizontal=true
 
   method image() =
     "teletubbies_sprites/" + nombre + "(" + color + ")/" + nombre + "_" + direccionActual + self.sufijoPaso() + ".png"
@@ -83,7 +84,7 @@ class Teletubbie {
   }
 
   method timotyEstaEnEstaHabitacion() =timoty.habitacionActual() == habitacion
-  var turnoHorizontal=true
+  
   method darUnPaso(){    
     if (turnoHorizontal) {
         self.estaALaDerecha()

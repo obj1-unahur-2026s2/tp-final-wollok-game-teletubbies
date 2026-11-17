@@ -1,4 +1,4 @@
-import src.pantallasFinDeJuego.*
+import pantallasFinDeJuego.*
 import wollok.mirror.*
 import mapa.*
 
