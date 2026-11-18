@@ -67,35 +67,38 @@ const baldosa8 = new Objetos(position = game.at(14,15), superficie = [1,1], imag
 const baldosa9 = new Objetos(position = game.at(14,13), superficie = [1,1], image = "tiles/numeros/baldosa9.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
 const baldosa10 = new Objetos(position = game.at(13,14), superficie = [1,1], image = "tiles/numeros/baldosa10.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
 
-const baldosa3 = new ObjetoPuzzle(position = game.at(13,15), superficie = [1,1], image = "tiles/numeros/baldosa3.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, accion = {
+const baldosa3 = new ObjetoInteractuable(position = game.at(13,15), superficie = [1,1], image = "tiles/numeros/baldosa3.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, accion = {
     if (not dados.spritesInstanciados().isEmpty()) {
         const dado3 = dados.spritesInstanciados().get(0)
         dado3.position(game.at(13,15))
+        gestorSFX.reproducirSonido("sonidos/dado.mp3")
         game.removeVisual(timoty)
         game.addVisual(timoty)
         puzzleDados.verificar()
     }
 })
-const baldosa5 = new ObjetoPuzzle(position = game.at(14,12), superficie = [1,1], image = "tiles/numeros/baldosa5.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, accion = {
+const baldosa5 = new ObjetoInteractuable(position = game.at(14,12), superficie = [1,1], image = "tiles/numeros/baldosa5.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, accion = {
     if (not dados.spritesInstanciados().isEmpty()) {
         const dado5 = dados.spritesInstanciados().get(2)
         dado5.position(game.at(14,12))
+        gestorSFX.reproducirSonido("sonidos/dado.mp3")
         game.removeVisual(timoty)
         game.addVisual(timoty)
         puzzleDados.verificar()
     }
 })
-const baldosa6 = new ObjetoPuzzle(position = game.at(15,15), superficie = [1,1], image = "tiles/numeros/baldosa6.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, accion = {
+const baldosa6 = new ObjetoInteractuable(position = game.at(15,15), superficie = [1,1], image = "tiles/numeros/baldosa6.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, accion = {
     if (not dados.spritesInstanciados().isEmpty()) {
         const dado6 = dados.spritesInstanciados().get(1)
         dado6.position(game.at(15,15))
+        gestorSFX.reproducirSonido("sonidos/dado.mp3")
         game.removeVisual(timoty)
         game.addVisual(timoty)
         puzzleDados.verificar()
     }
 })
 
-const bloqueoPuertaCocinaSalon = new ObjetoPuzzle(position = game.at(7,4), superficie = [1,1], image = "tiles/puerta4.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, accion = {
+const bloqueoPuertaCocinaSalon = new ObjetoInteractuable(position = game.at(7,4), superficie = [1,1], image = "tiles/puerta4.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, accion = {
     if (not mazo.spritesInstanciados().isEmpty()) {
         const habitacionActual = mapa.habitacionEn(bloqueoPuertaCocinaSalon.position())
         habitacionActual.objetosSinColision().remove(bloqueoPuertaCocinaSalon)
@@ -107,7 +110,7 @@ const bloqueoPuertaCocinaSalon = new ObjetoPuzzle(position = game.at(7,4), super
     }
 })
 
-const areaPastel = new ObjetoPuzzle(position = game.at(9,4), superficie = [1,1], image = "tiles/puerta4.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, accion = {
+const areaPastel = new ObjetoInteractuable(position = game.at(9,4), superficie = [1,1], image = "tiles/puerta4.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, accion = {
     if (not pastel.spritesInstanciados().isEmpty()) {
         mochila.sacarItem(pastel)
         const pastelEnSuelo = new ObjetoUsable(position = game.at(9,4),superficie =[1,1],image = "objetos/pastel_cuchillo.png",ordenDeDibujado = 1,vaAdelanteDeTimothy = false,tieneColision = false,imagenesInventario = ["objetos/pastel_cuchillo.png"],descripcion = ["ui/cuadro_de_texto.png"])
@@ -119,6 +122,7 @@ const areaPastel = new ObjetoPuzzle(position = game.at(9,4), superficie = [1,1],
         
         game.onCollideDo(pastelEnSuelo, { alguien => if (alguien.esEnemigo()) { 
             pastelEnSuelo.serChocadoPorEnemigo()
+            gestorSFX.reproducirSonido("sonidos/pastel.mp3")
             game.addVisual(cuchillo)
             habitacionActual.objetosConColision().add(cuchillo)
             mapa.actualizarFiltroNoche()
@@ -126,12 +130,12 @@ const areaPastel = new ObjetoPuzzle(position = game.at(9,4), superficie = [1,1],
     }    
 })
 
-const grieta = new ObjetoPuzzle(position = game.at(14,9), superficie = [1,1], image = "tiles/grieta.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, accion = {
+const grieta = new ObjetoInteractuable(position = game.at(14,9), superficie = [1,1], image = "tiles/grieta.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, accion = {
     if (not cuchillo.spritesInstanciados().isEmpty()) {
         mochila.sacarItem(cuchillo)
         const grieta_abierta = new Objetos(position = game.at(14, 9), superficie =[1,1], image = "tiles/grieta_abierta.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
         game.addVisual(grieta_abierta)
-        gestorSFX.reproducirSonido("sonidos/grietaAbriendose.mp3")
+        gestorSFX.reproducirSonido("sonidos/grieta.mp3")
         game.addVisual(llave)
 
         const habitacionActual = mapa.habitacionEn(grieta.position())
@@ -142,7 +146,7 @@ const grieta = new ObjetoPuzzle(position = game.at(14,9), superficie = [1,1], im
     }
 })
 
-const bloqueoPuertaSalonPelotero = new ObjetoPuzzle(position = game.at(18,9), superficie = [1,1], image = "tiles/puerta4.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, accion = {
+const bloqueoPuertaSalonPelotero = new ObjetoInteractuable(position = game.at(18,9), superficie = [1,1], image = "tiles/puerta4.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true, accion = {
     if (not llave.spritesInstanciados().isEmpty()) {
         const habitacionActual = mapa.habitacionEn(bloqueoPuertaSalonPelotero.position())
         habitacionActual.objetosConColision().remove(bloqueoPuertaSalonPelotero)

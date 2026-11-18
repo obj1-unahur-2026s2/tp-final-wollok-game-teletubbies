@@ -172,7 +172,7 @@ object cartelDescripcion {
     }
 }
 
-class ObjetoPuzzle inherits Objetos {
+class objetoInteractuable  inherits Objetos {
     const accion
 
     override method esPuzzle() = true

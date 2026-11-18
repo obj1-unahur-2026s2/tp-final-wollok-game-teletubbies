@@ -35,6 +35,7 @@ class Teletubbie {
   }
 
   method avanzar() {
+    gestorSFX.reproducirSonido("sonidos/paso3.mp3")
     self.cambiarDireccion(self.ruta().get(indice))
     indice = (indice + 1) % self.ruta().size()
     paso = (paso + 1) % 4
