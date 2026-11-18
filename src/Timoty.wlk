@@ -105,9 +105,19 @@ object timoty {
             objetoAInteractuar.interactuar()
         }
     }
+
+    method reiniciar() {
+        position = game.at(1, 2)
+        posicionAnterior = game.at(1, 2)
+        image = "timoty_sprites/timoty_front.png"
+        estaVivo = true
+        direccionActual = "front"
+        paso = 0
+        habitacionActual = cocina
+    }
 }
 
 object screamer {
-  var property position = game.origin()
-  method image() = "screamers/laalaa_screamer.png"
+    var property position = game.origin()
+    method image() = "screamers/laalaa_screamer.png"
 }

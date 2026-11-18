@@ -30,6 +30,9 @@ object puzzleDados {
         puerta_pelotero2.desbloquearPuerta()
         gestorSFX.reproducirSonido("sonidos/puertaAbriendose.mp3")
     }
+    method reiniciar() {
+        estaResuelto = false
+    }
 }
 
 const puerta_cocina = new Puerta(position=game.at(6,4),truePosition=game.at(7,4),image="tiles/puerta2.png")

@@ -170,9 +170,13 @@ object cartelDescripcion {
             estaVisible = false
         }
     }
+    method reiniciar() {
+        estaVisible = false
+        image = null
+    }
 }
 
-class objetoInteractuable  inherits Objetos {
+class ObjetoInteractuable  inherits Objetos {
     const accion
 
     override method esPuzzle() = true
@@ -182,16 +186,19 @@ class objetoInteractuable  inherits Objetos {
     }
 }
 class Puerta{
-   const property position
-   const property truePosition 
-   const property image
-   var estaAbierta = false
+    const property position
+    const property truePosition 
+    const property image
+    var estaAbierta = false
    
-   method esPuzzle() = false
-   method esUsable() = false
-   method estaAbierta() = estaAbierta
-   method desbloquearPuerta() {
-    estaAbierta = true
+    method esPuzzle() = false
+    method esUsable() = false
+    method estaAbierta() = estaAbierta
+    method desbloquearPuerta() {
+        estaAbierta = true
+    }
+    method reiniciar() {
+        estaAbierta = false
     }
 }
 
@@ -203,6 +210,10 @@ object mapa {
     var dificultadActual = "facil"
 
     const habitaciones = [cocina,salon,pelotero]
+    const interactuar = { 
+        timoty.agarrarObjeto()
+        timoty.interactuarConObjeto() 
+    }
     method dificultad() = if(dificultadActual == "facil") self.facil() else self.dificil()
     method dificultadActual(cambiarDificultad) { dificultadActual = cambiarDificultad }
     method actualizarFiltroNoche(){
@@ -223,10 +234,8 @@ object mapa {
 
         game.addVisual(timoty)
         timoty.caminar()
-        keyboard.enter().onPressDo({ 
-            timoty.agarrarObjeto()
-            timoty.interactuarConObjeto() 
-        })
+        keyboard.enter().onPressDo(interactuar)
+        keyboard.e().onPressDo(interactuar)
         game.onTick(150, "animarTimoty", { timoty.animarCaminata() })
 
         //Teletubbies, solo hay que poner el nombre y las coordenadas donde aparecen
@@ -250,10 +259,8 @@ object mapa {
 
         game.addVisual(timoty)
         timoty.caminar()
-        keyboard.enter().onPressDo({ 
-            timoty.agarrarObjeto()
-            timoty.interactuarConObjeto() 
-        })
+        keyboard.enter().onPressDo(interactuar)
+        keyboard.e().onPressDo(interactuar)
         game.onTick(150, "animarTimoty", { timoty.animarCaminata() })
         self.actualizarFiltroNoche()
 
@@ -273,6 +280,36 @@ object mapa {
             unaPosicion.x().between(hab.xMin(), hab.xMax()) and 
             unaPosicion.y().between(hab.yMin(), hab.yMax()) 
         })
+    }
+
+    method limpiarEstado() {
+        game.clear()
+        temporizador.detener()
+        timoty.reiniciar()
+        mochila.reiniciar()
+        cartelDescripcion.reiniciar()
+        puzzleDados.reiniciar()
+
+        habitaciones.forEach({ hab => hab.puertas().forEach({ p => p.reiniciar() }) })
+
+        cocina.objetosConColision().clear()
+        cocina.objetosConColision().addAll([mesa, silla_derecha, silla_izquierda, mazo])
+        cocina.objetosSinColision().clear()
+        cocina.objetosSinColision().addAll([carta, luz])
+
+        salon.objetosConColision().clear()
+        salon.objetosConColision().addAll([pastel])
+        salon.objetosSinColision().clear()
+        salon.objetosSinColision().addAll([pared_lateral, pared_lateral_salon, bloqueoPuertaCocinaSalon, areaPastel, grieta, patitas])
+
+        pelotero.objetosConColision().clear()
+        pelotero.objetosConColision().addAll([paredInvisible1, paredInvisible2, dados, sillones, paredAtrasPelotas, paredAdelantePelotas, arco_pelotas])
+        pelotero.objetosSinColision().clear()
+        pelotero.objetosSinColision().addAll([pared_lateral_pelotero, baldosa1, baldosa2, baldosa3, baldosa4, baldosa5, baldosa6, baldosa7, baldosa8, baldosa9, baldosa10, bloqueoPuertaSalonPelotero, pared_lateral_pelotero2, linea_pelotas1, linea_pelotas2, linea_pelotas3])
+    }
+    method reiniciar() {
+        self.limpiarEstado()
+        self.dificultad()
     }
 }
 

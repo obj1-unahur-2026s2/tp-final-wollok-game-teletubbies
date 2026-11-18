@@ -5,34 +5,32 @@ import sonidos.*
 
 
 object pantallaVictoria {
-        method pantallaVictoria(){
-            game.clear()
-            game.addVisual(fondoVictoria)
-            gestorSFX.quitarTodosLosAmbiente()
-            gestorSFX.reproducirMusicaUnica("sonidos/victoria.mp3")
-            /*
-            game.addVisual(botonReiniciar)
-            game.addVisual(botonIrAlMenu)
-            game.addVisual(botonSeleccionado)
-            botonSeleccionado.moverSeleccionado([botonReiniciar, botonIrAlMenu])
-            botonSeleccionado.ejecutar()
-            */
+    method pantallaVictoria(){
+        game.clear()
+        game.addVisual(fondoVictoria)
+        gestorSFX.quitarTodosLosAmbiente()
+        gestorSFX.reproducirMusicaUnica("sonidos/victoria.mp3")
+    
+        game.addVisual(botonReiniciar)
+        game.addVisual(botonIrAlMenu)
+        game.addVisual(botonSeleccionado)
+        botonSeleccionado.moverSeleccionado([botonReiniciar, botonIrAlMenu])
+        botonSeleccionado.ejecutar()
     }
 }
 object pantallaPerdida {
-        method pantallaPerdida(){
-            game.clear()
-            game.addVisual(fondoPerdida)
-            gestorSFX.quitarTodosLosAmbiente()
-            gestorSFX.reproducirMusicaUnica("sonidos/derrota.mp3")
-            gestorSFX.reproducirAmbiente("sonidos/estatica.mp3")
-            /*
-            game.addVisual(botonReiniciar)
-            game.addVisual(botonIrAlMenu)
-            game.addVisual(botonSeleccionado)
-            botonSeleccionado.moverSeleccionado([botonReiniciar, botonIrAlMenu])
-            botonSeleccionado.ejecutar()
-            */
+    method pantallaPerdida(){
+        game.clear()
+        game.addVisual(fondoPerdida)
+        gestorSFX.quitarTodosLosAmbiente()
+        gestorSFX.reproducirMusicaUnica("sonidos/derrota.mp3")
+        gestorSFX.reproducirAmbiente("sonidos/estatica.mp3")
+            
+        game.addVisual(botonReiniciar)
+        game.addVisual(botonIrAlMenu)
+        game.addVisual(botonSeleccionado)
+        botonSeleccionado.moverSeleccionado([botonReiniciar, botonIrAlMenu])
+        botonSeleccionado.ejecutar()
     }
 }
 
@@ -45,19 +43,17 @@ object fondoPerdida {
     const property image = "ui/game_over.png"
 }
 
-const botonReiniciar= new OpcionesDelMenu(    
+const botonReiniciar = new OpcionesDelMenu(    
     position = game.at(13, 4), 
     image = "botones/boton_reiniciar.png",
-    accion = { 
-      game.clear()
-      mapa.dificultad()
-      })
+    accion = { mapa.reiniciar() }
+)
 const botonIrAlMenu= new OpcionesDelMenu(    
     position = game.at(13, 1), 
     image = "botones/boton_volver_al_menu.png",
     accion = { 
-      game.clear()
-      menuInterfaz.menuInicio()
+        mapa.limpiarEstado()
+        menuInterfaz.menuInicio()
     }
 )
 

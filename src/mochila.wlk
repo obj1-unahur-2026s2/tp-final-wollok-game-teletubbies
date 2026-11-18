@@ -43,6 +43,11 @@ object mochila {
       })
     })
   }
+  method reiniciar() {
+    items.forEach({ item => item.spritesInstanciados().clear() })
+    items.clear()
+    cantidadSpritesEnBarra = 0
+  }
 }
 
 class SpriteMochila {
