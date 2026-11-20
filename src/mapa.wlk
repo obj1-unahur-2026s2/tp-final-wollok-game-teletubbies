@@ -107,7 +107,7 @@ class Pared{
 class Objetos{
     var property position
     const superficie=[]
-    const image
+    var image
     const property ordenDeDibujado
     const property vaAdelanteDeTimothy 
     var property tieneColision
@@ -185,6 +185,15 @@ class ObjetoInteractuable  inherits Objetos {
         mapa.actualizarFiltroNoche()
     }
 }
+
+class ObjetoAnimable inherits ObjetoInteractuable{
+    var property imagenActual
+    override method image()=imagenActual
+
+    method cambiarImagen(nuevaImagen) {
+        imagenActual = nuevaImagen
+    }
+}
 class Puerta{
     const property position
     const property truePosition 
@@ -202,9 +211,6 @@ class Puerta{
     }
 }
 
-const cocina = new Habitacion(xMin=1,xMax=6,yMin=2,yMax=8,puertas=[puerta_cocina],pisoHabitacion=piso_cocina,paredAtras=pared_cocina,objetosConColision=[mesa,silla_derecha,silla_izquierda,mazo],objetosSinColision=[carta, luz],nombre="cocina",estaOculto=false)
-const salon = new Habitacion(xMin=7,xMax=22,yMin=2,yMax=8,puertas=[puerta_cocinaYSalon,puerta_salonYpelotero],pisoHabitacion=piso_salon,paredAtras=paredAtrasSalon,nombre="salon",estaOculto=false,objetosConColision=[pastel],objetosSinColision=[pared_lateral,pared_lateral_salon,bloqueoPuertaCocinaSalon,areaPastel,grieta,patitas])
-const pelotero = new Habitacion(xMin=13,xMax=22,yMin=9,yMax=16,puertas=[puerta_peloteroYsalon,puerta_pelotero,puerta_pelotero2],pisoHabitacion=piso_pelotero,paredAtras=paredAtrasPelotero,nombre="pelotero",estaOculto=false,objetosConColision=[paredInvisible1,paredInvisible2,dados,sillones,paredAtrasPelotas,paredAdelantePelotas,arco_pelotas],objetosSinColision=[pared_lateral_pelotero,baldosa1,baldosa2,baldosa3,baldosa4,baldosa5,baldosa6,baldosa7,baldosa8,baldosa9,baldosa10,bloqueoPuertaSalonPelotero,pared_lateral_pelotero2,linea_pelotas1,linea_pelotas2,linea_pelotas3])
 
 object mapa {
     var dificultadActual = "facil"
@@ -262,15 +268,19 @@ object mapa {
         keyboard.enter().onPressDo(interactuar)
         keyboard.e().onPressDo(interactuar)
         game.onTick(150, "animarTimoty", { timoty.animarCaminata() })
-        self.actualizarFiltroNoche()
+        
 
         //Teletubbies, solo hay que poner el nombre y las coordenadas donde aparecen
-       const laalaa = new LaaLaa(habitacion = salon, position = game.at(9, 3))
-        laalaa.aparecer()
-        game.onTick(500, "perseguirLaaLaa", { laalaa.perseguir() })
-       const dipsy = new Dipsy(habitacion = pelotero, position = game.at(14, 11))
-        dipsy.aparecer()
-        game.onTick(500, "perseguirDipsy", { dipsy.perseguir() })
+       const tinky_winky = new Tinky_winky(habitacion = salon, position = game.at(9, 3))
+        tinky_winky.aparecer()
+        game.onTick(500, "perseguirLaaLaa", { tinky_winky.perseguir() })
+
+       const po = new Po(habitacion = pelotero, position = game.at(14, 11))
+        po.aparecer()
+        game.onTick(500, "perseguirPoo", { po.perseguir() })
+
+        self.actualizarFiltroNoche()
+
         temporizador.iniciar(180)
     }
     

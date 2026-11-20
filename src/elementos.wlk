@@ -47,6 +47,9 @@ const luz = new Objetos(position = game.at(1, 2), superficie =[1,1], image = "ti
 const mesa = new Objetos(position = game.at(2, 4), superficie =[1,4], image = "tiles/mesa.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
 const silla_derecha = new Objetos(position = game.at(3, 4), superficie =[1,2], image = "tiles/silla_derecha.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
 const silla_izquierda = new Objetos(position = game.at(1, 5), superficie =[1,2], image = "tiles/silla_izquierda.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
+const silla_izquierda2 = new Objetos(position = game.at(1, 6), superficie =[1,2], image = "tiles/silla_izquierda2.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
+const monopatin = new Objetos(position = game.at(8, 8), superficie =[2,1], image = "objetos/monopatin.png", ordenDeDibujado = 3, vaAdelanteDeTimothy = false, tieneColision = true)
+
 
 const sillones= new Objetos(position = game.at(17, 16), superficie =[1,1], image = "objetos/sillones.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
 const patitas = new Objetos(position = game.at(9, 4), superficie =[1,2], image = "tiles/patitas.png", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false)
@@ -54,6 +57,15 @@ const linea_pelotas1 = new Objetos(position = game.at(20,16),superficie=[3,1], i
 const linea_pelotas2 = new Objetos(position = game.at(20,15),superficie=[3,1], image="tiles/linea_pelotas.png",ordenDeDibujado = 2, vaAdelanteDeTimothy = false, tieneColision = false)
 const linea_pelotas3 = new Objetos(position = game.at(20,14),superficie=[3,1], image="tiles/linea_pelotas.png",ordenDeDibujado = 2, vaAdelanteDeTimothy = false, tieneColision = false)
 const arco_pelotas = new Objetos(position = game.at(22,15),superficie=[1,3], image="tiles/arco_pelotas.png",ordenDeDibujado = 3, vaAdelanteDeTimothy = false, tieneColision = false)
+const regalos = new Objetos(position = game.at(5,8),superficie=[1,1], image="objetos/regalos.png",ordenDeDibujado = 3, vaAdelanteDeTimothy = false, tieneColision = true)
+const globos = new Objetos(position = game.at(3,5),superficie=[1,1], image="objetos/globos.png",ordenDeDibujado = 3, vaAdelanteDeTimothy = false, tieneColision = false)
+const papeles = new Objetos(position = game.at(20,7),superficie=[1,1], image="objetos/papeles.png",ordenDeDibujado = 2, vaAdelanteDeTimothy = false, tieneColision = true)
+const tacho = new Objetos(position = game.at(20,8),superficie=[1,2], image="objetos/tacho.png",ordenDeDibujado = 3, vaAdelanteDeTimothy = false, tieneColision = false)
+const pelota_regalos = new Objetos(position = game.at(7,8),superficie=[2,1], image="objetos/pelota_y_regalo.png",ordenDeDibujado = 2, vaAdelanteDeTimothy = false, tieneColision = true)
+const sillones_sala = new Objetos(position = game.at(22,5),superficie=[1,3], image="objetos/sillones_sala.png",ordenDeDibujado = 2, vaAdelanteDeTimothy = false, tieneColision = true)
+const mesa_sala = new Objetos(position = game.at(22,7),superficie=[1,1], image="objetos/mesa_sala.png",ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = true)
+const baberos = new Objetos(position = game.at(11,8),superficie=[2,1], image="objetos/baberos.png",ordenDeDibujado = 2, vaAdelanteDeTimothy = false, tieneColision = true)
+
 
 const carta = new ObjetoUsable(position = game.at(1, 3), superficie =[1,1], image = "objetos/carta.gif", ordenDeDibujado = 1, vaAdelanteDeTimothy = false, tieneColision = false, imagenesInventario = ["objetos/objetos_mochila/carta_mochila.png"], descripcion = "ui/instrucciones.png")
 const dados = new ObjetoUsable(position = game.at(22,13), superficie = [1,1], image = "objetos/dados.png", ordenDeDibujado = 3, vaAdelanteDeTimothy = false, tieneColision = true, imagenesInventario = ["objetos/objetos_mochila/dado3_mochila.png","objetos/objetos_mochila/dado6_mochila.png","objetos/objetos_mochila/dado5_mochila.png"], descripcion = "ui/descripcionDados.png")
@@ -160,6 +172,13 @@ const bloqueoPuertaSalonPelotero = new ObjetoInteractuable(position = game.at(18
 
     }
 })
+
+const noo_noo= new ObjetoAnimable(position = game.at(21,2), superficie = [1,1], image = "objetos/noo_noo_quieto.png", ordenDeDibujado = 3, vaAdelanteDeTimothy = false, tieneColision = true,imagenActual="objetos/noo_noo_quieto.png", accion = {
+    noo_noo.cambiarImagen("objetos/noo_noo_movimiento.gif")
+    gestorSFX.reproducirSonido("sonidos/noo_noo.mp3")
+    game.schedule(120, {noo_noo.cambiarImagen("objetos/noo_noo_quieto.png")})
+})
+
 object zonaDeVictoria {
     const property position = game.at(12, 11)
     const property image = "tiles/puerta4.png"
@@ -195,3 +214,8 @@ const piso_pelotas = new Piso(position=game.at(20,14),image="tiles/pelotas_piso.
 
 const paredInvisible1 = new Pared(position=game.at(13,9),superficie=[5,1],image="tiles/puerta4.png")
 const paredInvisible2 = new Pared(position=game.at(19,9),superficie=[4,1],image="tiles/puerta4.png")
+
+
+const cocina = new Habitacion(xMin=1,xMax=6,yMin=2,yMax=8,puertas=[puerta_cocina],pisoHabitacion=piso_cocina,paredAtras=pared_cocina,objetosConColision=[mesa,silla_derecha,silla_izquierda2,silla_izquierda,mazo,regalos],objetosSinColision=[carta, luz,globos],nombre="cocina",estaOculto=false)
+const salon = new Habitacion(xMin=7,xMax=22,yMin=2,yMax=8,puertas=[puerta_cocinaYSalon,puerta_salonYpelotero],pisoHabitacion=piso_salon,paredAtras=paredAtrasSalon,nombre="salon",estaOculto=false,objetosConColision=[pastel,monopatin,noo_noo,tacho,pelota_regalos,sillones_sala,mesa_sala,baberos],objetosSinColision=[pared_lateral,pared_lateral_salon,bloqueoPuertaCocinaSalon,areaPastel,grieta,patitas,papeles])
+const pelotero = new Habitacion(xMin=13,xMax=22,yMin=9,yMax=16,puertas=[puerta_peloteroYsalon,puerta_pelotero,puerta_pelotero2],pisoHabitacion=piso_pelotero,paredAtras=paredAtrasPelotero,nombre="pelotero",estaOculto=false,objetosConColision=[paredInvisible1,paredInvisible2,dados,sillones,paredAtrasPelotas,paredAdelantePelotas,arco_pelotas],objetosSinColision=[pared_lateral_pelotero,baldosa1,baldosa2,baldosa3,baldosa4,baldosa5,baldosa6,baldosa7,baldosa8,baldosa9,baldosa10,bloqueoPuertaSalonPelotero,pared_lateral_pelotero2,linea_pelotas1,linea_pelotas2,linea_pelotas3])

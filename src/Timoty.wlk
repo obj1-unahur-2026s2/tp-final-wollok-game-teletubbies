@@ -2,6 +2,7 @@ import sonidos.*
 import pantallasFinDeJuego.*
 import wollok.mirror.*
 import mapa.*
+import elementos.*
 
 object timoty {
     var property position = game.at(1, 2)

@@ -151,7 +151,7 @@ const opcionAtras = new OpcionesDelMenu(
         menuInterfaz.menuOpciones()
     })
 const opcionAtras2 = new OpcionesDelMenu(
-    position = game.at(13,4),
+    position = game.at(13,3),
     image = "botones/botonAtras.png",
     accion = {
         gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")

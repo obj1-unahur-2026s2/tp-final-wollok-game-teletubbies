@@ -134,3 +134,23 @@ class Dipsy inherits Teletubbie(nombre = "dipsy", color = "verde") {
 
   override method ruta() = ruta
 }
+
+class Po inherits Teletubbie(nombre = "po", color = "rojo") {
+  const ruta = 
+    self.repetir("right", 4) + 
+    self.repetir("back", 3) +
+    self.repetir("front", 3) + 
+    self.repetir("left", 4)
+
+  override method ruta() = ruta
+}
+
+class Tinky_winky inherits Teletubbie(nombre = "tinky_winky", color = "morado") {
+  const ruta = 
+    self.repetir("right", 4) + 
+    self.repetir("back", 3) +
+    self.repetir("front", 3) + 
+    self.repetir("left", 4)
+
+  override method ruta() = ruta
+}
