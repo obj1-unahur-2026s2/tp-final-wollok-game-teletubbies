@@ -150,5 +150,33 @@ object gestorSFX {
         ambientesEnReproduccion.values().forEach({a => a.stop()})
         ambientesEnReproduccion.clear()
     }
+}
 
-} 
+class DigitoVisual {
+  var property position
+  var property image = "ui/contador0.png"
+}
+
+class ContadorVisual {
+  const position
+  const bloqueValor
+  
+  const decena = new DigitoVisual(position = position)
+  const unidad = new DigitoVisual(position = position.right(1))
+
+  method agregarAlJuego() {
+    self.actualizar()
+    game.addVisual(decena)
+    game.addVisual(unidad)
+  }
+
+  method actualizar() {
+    const valorEntero = bloqueValor.apply().max(0)
+    
+    const numDecena = valorEntero.div(10)
+    const numUnidad = valorEntero % 10
+    
+    decena.image("ui/contador" + numDecena.toString() + ".png")
+    unidad.image("ui/contador" + numUnidad.toString() + ".png")
+  }
+}

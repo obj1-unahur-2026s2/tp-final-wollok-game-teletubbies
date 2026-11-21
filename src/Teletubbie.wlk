@@ -7,6 +7,7 @@ class Teletubbie {
   const nombre
   const color
   const habitacion
+  const ruta
   var property position
   var direccionActual = "front"
   var indice = 0
@@ -59,9 +60,7 @@ class Teletubbie {
 
   method puedeMoverseA(pos) = not habitacion.estaCeldaBloqueada(pos)
 
-  method ruta()
-
-  method repetir(unPaso, veces) = (1..veces).map({ i => unPaso })
+  method ruta() = ruta
 
   method esEnemigo() = true
 
@@ -114,43 +113,6 @@ class Teletubbie {
   }
 }
 
-// Voy creando las subclasses a medida que añadamos los niveles
-class LaaLaa inherits Teletubbie(nombre = "laa-laa", color = "amarillo") {
-  const ruta =
-    self.repetir("right", 10) +
-    self.repetir("back", 4) +
-    self.repetir("left", 10) +
-    self.repetir("front", 4)
-
-  override method ruta() = ruta
-}
-
-class Dipsy inherits Teletubbie(nombre = "dipsy", color = "verde") {
-  const ruta = 
-    self.repetir("right", 4) + 
-    self.repetir("back", 3) +
-    self.repetir("front", 3) + 
-    self.repetir("left", 4)
-
-  override method ruta() = ruta
-}
-
-class Po inherits Teletubbie(nombre = "po", color = "rojo") {
-  const ruta = 
-    self.repetir("right", 4) + 
-    self.repetir("back", 3) +
-    self.repetir("front", 3) + 
-    self.repetir("left", 4)
-
-  override method ruta() = ruta
-}
-
-class Tinky_winky inherits Teletubbie(nombre = "tinky_winky", color = "morado") {
-  const ruta = 
-    self.repetir("right", 4) + 
-    self.repetir("back", 3) +
-    self.repetir("front", 3) + 
-    self.repetir("left", 4)
-
-  override method ruta() = ruta
+object constructorRutas {
+	method repetir(paso, veces) = (1..veces).map({ i => paso })
 }

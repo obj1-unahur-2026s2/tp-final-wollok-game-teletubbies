@@ -1,9 +1,9 @@
-
 import wollok.game.*
 import Timoty.*
 import mochila.*
 import Teletubbie.*
 import elementos.*
+import sonidos.ContadorVisual
 
 object cuadroDeTexto{
     const property position = game.at(23,2)
@@ -107,7 +107,7 @@ class Pared{
 class Objetos{
     var property position
     const superficie=[]
-    var image
+    const image
     const property ordenDeDibujado
     const property vaAdelanteDeTimothy 
     var property tieneColision
@@ -187,7 +187,7 @@ class ObjetoInteractuable  inherits Objetos {
 }
 
 class ObjetoAnimable inherits ObjetoInteractuable{
-    var property imagenActual
+    var imagenActual
     override method image()=imagenActual
 
     method cambiarImagen(nuevaImagen) {
@@ -211,6 +211,10 @@ class Puerta{
     }
 }
 
+const laalaa = new Teletubbie(nombre = "laa-laa",color = "amarillo",habitacion = salon,position = game.at(9, 3),ruta = constructorRutas.repetir("right", 10) + constructorRutas.repetir("back", 4) + constructorRutas.repetir("left", 10) + constructorRutas.repetir("front", 4))
+const dipsy = new Teletubbie(nombre = "dipsy",color = "verde",habitacion = pelotero,position = game.at(14, 11),ruta = constructorRutas.repetir("right", 4) + constructorRutas.repetir("back", 3) + constructorRutas.repetir("front", 3) + constructorRutas.repetir("left", 4))
+const po = new Teletubbie(nombre = "po",color = "rojo",habitacion = pelotero,position = game.at(14,11),ruta = constructorRutas.repetir("right", 4) + constructorRutas.repetir("back", 3) + constructorRutas.repetir("front", 3) + constructorRutas.repetir("left", 4))
+const tinkywinky = new Teletubbie(nombre = "tinky_winky",color = "morado",habitacion = salon,position = game.at(9,3),ruta = constructorRutas.repetir("right", 4) + constructorRutas.repetir("back", 3) + constructorRutas.repetir("front", 3) + constructorRutas.repetir("left", 4))
 
 object mapa {
     var dificultadActual = "facil"
@@ -244,14 +248,12 @@ object mapa {
         keyboard.e().onPressDo(interactuar)
         game.onTick(150, "animarTimoty", { timoty.animarCaminata() })
 
-        //Teletubbies, solo hay que poner el nombre y las coordenadas donde aparecen
-       const laalaa = new LaaLaa(habitacion = salon, position = game.at(9, 3))
         laalaa.aparecer()
         game.onTick(400, "rutaLaaLaa", { laalaa.avanzar() })
-       const dipsy = new Dipsy(habitacion = pelotero, position = game.at(14, 11))
         dipsy.aparecer()
         game.onTick(400, "rutaDipsy", { dipsy.avanzar() })
-        temporizador.iniciar(240)
+
+        temporizador.iniciar(300)
     }
     method dificil() {
         game.addVisual(fondo)
@@ -269,18 +271,12 @@ object mapa {
         keyboard.e().onPressDo(interactuar)
         game.onTick(150, "animarTimoty", { timoty.animarCaminata() })
         
-
-        //Teletubbies, solo hay que poner el nombre y las coordenadas donde aparecen
-       const tinky_winky = new Tinky_winky(habitacion = salon, position = game.at(9, 3))
-        tinky_winky.aparecer()
-        game.onTick(500, "perseguirLaaLaa", { tinky_winky.perseguir() })
-
-       const po = new Po(habitacion = pelotero, position = game.at(14, 11))
+        tinkywinky.aparecer()
+        game.onTick(500, "perseguirTinkywinky", { tinkywinky.perseguir() })
         po.aparecer()
-        game.onTick(500, "perseguirPoo", { po.perseguir() })
-
+        game.onTick(500, "perseguirPo", { po.perseguir() })
+        
         self.actualizarFiltroNoche()
-
         temporizador.iniciar(180)
     }
     
@@ -303,19 +299,19 @@ object mapa {
         habitaciones.forEach({ hab => hab.puertas().forEach({ p => p.reiniciar() }) })
 
         cocina.objetosConColision().clear()
-        cocina.objetosConColision().addAll([mesa, silla_derecha, silla_izquierda, mazo])
+        cocina.objetosConColision().addAll([mesa,silla_derecha,silla_izquierda2,silla_izquierda,mazo,regalos])
         cocina.objetosSinColision().clear()
-        cocina.objetosSinColision().addAll([carta, luz])
+        cocina.objetosSinColision().addAll([carta, luz, globos])
 
         salon.objetosConColision().clear()
-        salon.objetosConColision().addAll([pastel])
+        salon.objetosConColision().addAll([pastel,monopatin,noo_noo,tacho,pelota_regalos,sillones_sala,mesa_sala,baberos])
         salon.objetosSinColision().clear()
-        salon.objetosSinColision().addAll([pared_lateral, pared_lateral_salon, bloqueoPuertaCocinaSalon, areaPastel, grieta, patitas])
+        salon.objetosSinColision().addAll([pared_lateral,pared_lateral_salon,bloqueoPuertaCocinaSalon,areaPastel,grieta,patitas,papeles])
 
         pelotero.objetosConColision().clear()
-        pelotero.objetosConColision().addAll([paredInvisible1, paredInvisible2, dados, sillones, paredAtrasPelotas, paredAdelantePelotas, arco_pelotas])
+        pelotero.objetosConColision().addAll([paredInvisible1,paredInvisible2,dados,sillones,paredAtrasPelotas,paredAdelantePelotas,arco_pelotas])
         pelotero.objetosSinColision().clear()
-        pelotero.objetosSinColision().addAll([pared_lateral_pelotero, baldosa1, baldosa2, baldosa3, baldosa4, baldosa5, baldosa6, baldosa7, baldosa8, baldosa9, baldosa10, bloqueoPuertaSalonPelotero, pared_lateral_pelotero2, linea_pelotas1, linea_pelotas2, linea_pelotas3])
+        pelotero.objetosSinColision().addAll([pared_lateral_pelotero,baldosa1,baldosa2,baldosa3,baldosa4,baldosa5,baldosa6,baldosa7,baldosa8,baldosa9,baldosa10,bloqueoPuertaSalonPelotero,pared_lateral_pelotero2,linea_pelotas1,linea_pelotas2,linea_pelotas3])
     }
     method reiniciar() {
         self.limpiarEstado()
@@ -323,23 +319,40 @@ object mapa {
     }
 }
 
+object dosPuntos {
+  var property position = game.at(5, 13)
+  method image() = "ui/dos_puntos.png"
+}
+
 object temporizador {
     var segundosRestantes = 120
-    const property position = game.at(15, 18)
 
-    method text() = "Tiempo: " + segundosRestantes.toString() + "s"
-    method textColor() = "FFFFFF"
+    const contadorMinutos = new ContadorVisual(
+        position = game.at(3, 13),
+        bloqueValor = { segundosRestantes.div(60) }
+    )
+
+    const contadorSegundos = new ContadorVisual(
+        position = game.at(6, 13),
+        bloqueValor = { segundosRestantes % 60 }
+    )
 
     method iniciar(tiempoInicial) {
         segundosRestantes = tiempoInicial
-        game.addVisual(self)
-        
+    
+        contadorMinutos.agregarAlJuego()
+        game.addVisual(dosPuntos)
+        contadorSegundos.agregarAlJuego()
+
         game.onTick(1000, "cuentaRegresiva", {
             segundosRestantes -= 1
-            if (segundosRestantes <= 0) {
-                self.detener()
-                timoty.morir()
-            }
+            contadorMinutos.actualizar()
+            contadorSegundos.actualizar()
+
+        if (segundosRestantes <= 0) {
+            self.detener()
+            timoty.morir()
+        }
         })
     }
 

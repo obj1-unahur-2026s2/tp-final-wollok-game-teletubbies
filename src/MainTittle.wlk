@@ -30,6 +30,26 @@ object titulo{
     var property position = game.at(9,13)
     method image()="Titulo.png"
 }
+object sonido{
+    var property position = game.at(5,12)
+    method image()="ui/sonido.png"
+}
+object ambiente{
+    var property position = game.at(5,10)
+    method image()="ui/ambiente.png"
+}
+object musica{
+    var property position = game.at(5,8)
+    method image()="ui/musica.png"
+}
+object principal{
+    var property position = game.at(5,6)
+    method image()="ui/principal.png"
+}
+object fondoContador{
+    var property position = game.at(18,6)
+    method image()="ui/fondo_contador.png"
+}
 object instruccionesMenu { 
     var property position = game.at(0,0) 
     method image()="ui/instruccionesMenu.png" 
@@ -39,9 +59,11 @@ class OpcionesDelMenu {
     const position
     const image
     const accion
+    const offsetSeleccion = 0
 
     method position() = position
     method image() = image
+    method posicionDeSeleccion() = game.at(position.x() + offsetSeleccion, position.y())
     method interactuar(){
         accion.apply() 
     }
@@ -87,7 +109,7 @@ object botonSeleccionado {
 
     method actualizarPosicion() {
         const opcionDestino = opciones.get(indiceActual)
-        position = game.at(self.position().x(), opcionDestino.position().y())
+        position = opcionDestino.posicionDeSeleccion()
     }
 }
 
@@ -102,7 +124,7 @@ const opcionJugar = new OpcionesDelMenu(
       mapa.dificultad()
       gestorSFX.quitarMusica()
       gestorSFX.reproducirAmbiente("sonidos/cancion3.mp3")
-      })
+})
 const opcionOpciones = new OpcionesDelMenu(
     position = game.at(13,8) , 
     image = "botones/botonOpciones.png", 
@@ -110,12 +132,12 @@ const opcionOpciones = new OpcionesDelMenu(
         gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
         game.clear()
         menuInterfaz.menuOpciones()
-    })
+})
 const opcionSalir = new OpcionesDelMenu(
     position = game.at(13,6), 
     image = "botones/botonSalir.png", 
-    accion = {game.stop()})
-
+    accion = {game.stop()
+})
 const opcionFacil = new OpcionesDelMenu(
     position = game.at(13,10),
     image = "botones/botonFacil.png",
@@ -124,7 +146,7 @@ const opcionFacil = new OpcionesDelMenu(
         mapa.dificultadActual("facil")
         game.clear()
         menuInterfaz.menuInicio()
-    })
+})
 const opcionDificil = new OpcionesDelMenu(
     position = game.at(13,8),
     image = "botones/botonDificil.png",
@@ -133,15 +155,16 @@ const opcionDificil = new OpcionesDelMenu(
         mapa.dificultadActual("dificil")
         game.clear()
         menuInterfaz.menuInicio()
-    })
+})
 const opcionInstrucciones = new OpcionesDelMenu(
     position = game.at(11.5,6),
+    offsetSeleccion = 1,
     image = "botones/botonInstrucciones.png",
     accion = {
         gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
         game.clear()
         menuInterfaz.menuInstrucciones()
-    })
+})
 const opcionAtras = new OpcionesDelMenu(
     position = game.at(13,4),
     image = "botones/botonAtras.png",
@@ -149,15 +172,112 @@ const opcionAtras = new OpcionesDelMenu(
         gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
         game.clear()
         menuInterfaz.menuOpciones()
-    })
+})
 const opcionAtras2 = new OpcionesDelMenu(
-    position = game.at(13,3),
+    position = game.at(13,2),
     image = "botones/botonAtras.png",
     accion = {
         gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
         game.clear()
         menuInterfaz.menuInicio()
-    })
+})
+const opcionVolumen = new OpcionesDelMenu(
+    position = game.at(13,4),
+    image = "botones/boton_volumen.png",
+    accion = {
+        gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
+        game.clear()
+        menuInterfaz.menuVolumen()
+})
+const masSonido = new OpcionesDelMenu(
+    position = game.at(22,12),
+    offsetSeleccion = -1.5,
+    image = "botones/boton_mas.png",
+    accion = {
+        gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
+        gestorSFX.subirVolumenDelSonido()
+        indicadorSonido.actualizar()
+})
+const menosSonido = new OpcionesDelMenu(
+    position = game.at(14,12),
+    offsetSeleccion = -1.5,
+    image = "botones/boton_menos.png",
+    accion = {
+        gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
+        gestorSFX.bajarVolumenDelSonido()
+        indicadorSonido.actualizar()
+})
+const masAmbiente = new OpcionesDelMenu(
+    position = game.at(22,10),
+    offsetSeleccion = -1.5,
+    image = "botones/boton_mas.png",
+    accion = {
+        gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
+        gestorSFX.subirVolumenDelAmbiente()
+        indicadorAmbiente.actualizar()
+})
+const menosAmbiente = new OpcionesDelMenu(
+    position = game.at(14,10),
+    offsetSeleccion = -1.5,
+    image = "botones/boton_menos.png",
+    accion = {
+        gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
+        gestorSFX.bajarVolumenDelAmbiente()
+        indicadorAmbiente.actualizar()
+})
+const masMusica = new OpcionesDelMenu(
+    position = game.at(22,8),
+    offsetSeleccion = -1.5,
+    image = "botones/boton_mas.png",
+    accion = {
+        gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
+        gestorSFX.subirVolumenDeLaMusica()
+        indicadorMusica.actualizar()
+})
+const menosMusica = new OpcionesDelMenu(
+    position = game.at(14,8),
+    offsetSeleccion = -1.5,
+    image = "botones/boton_menos.png",
+    accion = {
+        gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
+        gestorSFX.bajarVolumenDeLaMusica()
+        indicadorMusica.actualizar()
+})
+const masPrincipal = new OpcionesDelMenu(
+    position = game.at(22,6),
+    offsetSeleccion = -1.5,
+    image = "botones/boton_mas.png",
+    accion = {
+        gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
+        gestorSFX.subirVolumenPrincipal()
+        indicadorPrincipal.actualizar()
+})
+const menosPrincipal = new OpcionesDelMenu(
+    position = game.at(14,6),
+    offsetSeleccion = -1.5,
+    image = "botones/boton_menos.png",
+    accion = {
+        gestorSFX.reproducirSonido("sonidos/sonidoDeMenu1.mp3")
+        gestorSFX.bajarVolumenPrincipal()
+        indicadorPrincipal.actualizar()
+})
+
+const indicadorSonido = new ContadorVisual(
+  position = game.at(18, 12),
+  bloqueValor = { (gestorSFX.sonidos() * 10).round() }
+)
+const indicadorAmbiente = new ContadorVisual(
+  position = game.at(18, 10),
+  bloqueValor = { (gestorSFX.ambiente() * 10).round() }
+)
+const indicadorMusica = new ContadorVisual(
+  position = game.at(18, 8),
+  bloqueValor = { (gestorSFX.musica() * 10).round() }
+)
+const indicadorPrincipal = new ContadorVisual(
+  position = game.at(18, 6),
+  bloqueValor = { (gestorSFX.principal() * 10).round() }
+)
 
 object menuInterfaz {
     method menuInicio(){
@@ -175,9 +295,11 @@ object menuInterfaz {
         game.addVisual(opcionFacil)
         game.addVisual(opcionDificil)
         game.addVisual(opcionInstrucciones)
+        game.addVisual(opcionVolumen)
         game.addVisual(opcionAtras2)
         game.addVisual(botonSeleccionado)
-        botonSeleccionado.moverSeleccionado([opcionFacil, opcionDificil, opcionInstrucciones, opcionAtras2])
+        game.addVisual(titulo)
+        botonSeleccionado.moverSeleccionado([opcionFacil, opcionDificil, opcionInstrucciones, opcionVolumen ,opcionAtras2])
         botonSeleccionado.ejecutar()
     }
     method menuInstrucciones() {
@@ -186,6 +308,30 @@ object menuInterfaz {
         game.addVisual(instruccionesMenu)
         game.addVisual(botonSeleccionado)
         botonSeleccionado.moverSeleccionado([opcionAtras])
+        botonSeleccionado.ejecutar()
+    }
+    method menuVolumen() {
+        game.addVisual(pantallaDeInicio)
+        game.addVisual(sonido)
+        game.addVisual(ambiente)
+        game.addVisual(musica)
+        game.addVisual(principal)
+        game.addVisual(masSonido)
+        game.addVisual(masAmbiente)
+        game.addVisual(masMusica)
+        game.addVisual(masPrincipal)
+        game.addVisual(menosSonido)
+        game.addVisual(menosAmbiente)
+        game.addVisual(menosMusica)
+        game.addVisual(menosPrincipal)
+        game.addVisual(fondoContador)
+        game.addVisual(opcionAtras)
+        game.addVisual(botonSeleccionado)
+        botonSeleccionado.moverSeleccionado([menosSonido,masSonido,menosAmbiente,masAmbiente,menosMusica,masMusica,menosPrincipal,masPrincipal,opcionAtras])
+        indicadorSonido.agregarAlJuego()
+        indicadorAmbiente.agregarAlJuego()
+        indicadorMusica.agregarAlJuego()
+        indicadorPrincipal.agregarAlJuego()
         botonSeleccionado.ejecutar()
     }
 }

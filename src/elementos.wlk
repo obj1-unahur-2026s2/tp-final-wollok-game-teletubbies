@@ -89,6 +89,8 @@ const baldosa3 = new ObjetoInteractuable(position = game.at(13,15), superficie =
         gestorSFX.reproducirSonido("sonidos/dado.mp3")
         game.removeVisual(timoty)
         game.addVisual(timoty)
+        game.removeVisual(po)
+        game.addVisual(po)
         puzzleDados.verificar()
     }
 })
@@ -99,6 +101,8 @@ const baldosa5 = new ObjetoInteractuable(position = game.at(14,12), superficie =
         gestorSFX.reproducirSonido("sonidos/dado.mp3")
         game.removeVisual(timoty)
         game.addVisual(timoty)
+        game.removeVisual(po)
+        game.addVisual(po)
         puzzleDados.verificar()
     }
 })
@@ -109,6 +113,8 @@ const baldosa6 = new ObjetoInteractuable(position = game.at(15,15), superficie =
         gestorSFX.reproducirSonido("sonidos/dado.mp3")
         game.removeVisual(timoty)
         game.addVisual(timoty)
+        game.removeVisual(po)
+        game.addVisual(po)
         puzzleDados.verificar()
     }
 })
