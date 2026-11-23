@@ -111,6 +111,13 @@ class Teletubbie {
         self.avanzar()
     }
   }
+
+  method traerAlFrente() {
+    if (game.hasVisual(self)) {
+      game.removeVisual(self)
+      game.addVisual(self)
+    }
+  }
 }
 
 object constructorRutas {

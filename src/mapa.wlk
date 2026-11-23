@@ -125,6 +125,11 @@ class Objetos{
         return unaPosicion.x().between(position.x(), xMax) 
            and unaPosicion.y().between(position.y(), yMax)
     }
+    method serChocadoPorEnemigo() {
+        game.removeVisual(self) 
+        const habitacionActual = mapa.habitacionEn(self.position())
+        habitacionActual.objetosSinColision().remove(self)
+    }
 }
 
 class ObjetoUsable inherits Objetos {
@@ -138,11 +143,6 @@ class ObjetoUsable inherits Objetos {
         mochila.agregarItem(self)
         const habitacionActual = mapa.habitacionEn(self.position())
         habitacionActual.objetosConColision().remove(self)
-        habitacionActual.objetosSinColision().remove(self)
-    }
-    method serChocadoPorEnemigo() {
-        game.removeVisual(self) 
-        const habitacionActual = mapa.habitacionEn(self.position())
         habitacionActual.objetosSinColision().remove(self)
     }
     method mostrarDescripcion() {
